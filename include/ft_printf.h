@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/08 00:13:04 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/09 05:10:48 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ struct s_line
 };
 
 int			ft_printf(const char *format, ...);
-void		ft_add_char(t_line_char **line_char, t_line_char *char_new);
+void		ft_add_char(t_line_char **line_char,
+				t_line_char *char_new, t_line *line);
 t_line_char	*ft_char_new(char c);
 char		*free_line(t_line_char *line_char);
 size_t		ft_cast_char(va_list ap, t_line *line);

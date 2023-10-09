@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:17:33 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/08 00:11:48 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/09 04:54:18 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_printf(const char *format, ...)
 	va_list	ap;
 	t_line	line;
 
+	if (!format)
+		return (-1);
 	line.str = NULL;
 	line.len = 0;
 	va_start(ap, format);
@@ -43,10 +45,7 @@ static void	ft_get_specifier(const char **format, va_list ap, t_line *line)
 		if (str[i] == '%')
 			i += ft_manage_specifier((str + i), ap, line);
 		else if (str[i])
-		{
-			ft_add_char(&line->str, ft_char_new(str[i]));
-			line->len++;
-		}
+			ft_add_char(&line->str, ft_char_new(str[i]), line);
 		i++;
 	}
 }
@@ -72,10 +71,7 @@ static size_t	ft_manage_specifier(const char *format,
 	if (next_char == 'X')
 		return (ft_cast_hex_lw_up(ap, line, CHECK_HEX_UP));
 	if (next_char == '%')
-	{
-		ft_add_char(&line->str, ft_char_new('%'));
-		line->len++;
-	}
+		ft_add_char(&line->str, ft_char_new('%'), line);
 	return (JUMP_SPECIFIER);
 }
 

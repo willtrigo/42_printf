@@ -6,13 +6,14 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:13:52 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/06 01:16:44 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/09 05:11:29 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ft_printf.h"
 
-void	ft_add_char(t_line_char **line_char, t_line_char *char_new)
+void	ft_add_char(t_line_char **line_char,
+			t_line_char *char_new, t_line *line)
 {
 	t_line_char	*line_temp;
 
@@ -28,6 +29,7 @@ void	ft_add_char(t_line_char **line_char, t_line_char *char_new)
 			line_temp->next = char_new;
 		}
 	}
+	line->len++;
 }
 
 t_line_char	*ft_char_new(char c)

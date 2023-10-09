@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/08 00:17:12 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/09 04:55:56 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int speficier)
 	unsigned int	hex;
 
 	hex = va_arg(ap, unsigned int);
-	if (!hex)
+	if (hex == '0')
 		ft_add_str(NULL_STR, line);
 	else
 	{
@@ -57,10 +57,7 @@ static void	ft_insert_hex_init(t_line *line, int speficier)
 
 	hex_init = "0x";
 	while (*hex_init && speficier == CHECK_HEX_PTR)
-	{
-		ft_add_char(&line->str, ft_char_new(*(hex_init++)));
-		line->len++;
-	}
+		ft_add_char(&line->str, ft_char_new(*(hex_init++)), line);
 }
 
 static void	ft_get_hex(t_line *line,
@@ -70,14 +67,12 @@ static void	ft_get_hex(t_line *line,
 	{
 		if (ptr >= 16)
 			ft_get_hex(line, ptr / 16, ++len, CHECK_HEX_UP);
-		ft_add_char(&line->str, ft_char_new(HEX_UP[ptr % 16]));
-		line->len++;
+		ft_add_char(&line->str, ft_char_new(HEX_UP[ptr % 16]), line);
 	}
 	else
 	{
 		if (ptr >= 16)
 			ft_get_hex(line, ptr / 16, ++len, CHECK_HEX_LW);
-		ft_add_char(&line->str, ft_char_new(HEX_LW[ptr % 16]));
-		line->len++;
+		ft_add_char(&line->str, ft_char_new(HEX_LW[ptr % 16]), line);
 	}
 }
