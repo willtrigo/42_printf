@@ -6,13 +6,12 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/09 05:01:43 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/09 05:27:43 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
 
-static void	ft_insert_hex_init(t_line *line, int specifier);
 static void	ft_get_hex(t_line *line,
 				unsigned long int ptr, int len, int specifier);
 
@@ -27,7 +26,7 @@ size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int speficier)
 			ft_add_str(NULL_PTR, line);
 		else
 		{
-			ft_insert_hex_init(line, speficier);
+			ft_add_str("0x", line);
 			ft_get_hex(line, hex, 0, speficier);
 		}
 	}
@@ -49,15 +48,6 @@ size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int speficier)
 			ft_get_hex(line, hex, 0, CHECK_HEX_UP);
 	}
 	return (JUMP_SPECIFIER);
-}
-
-static void	ft_insert_hex_init(t_line *line, int speficier)
-{
-	char	*hex_init;
-
-	hex_init = "0x";
-	while (*hex_init && speficier == CHECK_HEX_PTR)
-		ft_add_char(&line->str, ft_char_new(*(hex_init++)), line);
 }
 
 static void	ft_get_hex(t_line *line,
