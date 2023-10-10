@@ -6,13 +6,13 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:17:33 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/09 04:54:18 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/10 04:39:23 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-static void		ft_get_specifier(const char **format, va_list ap, t_line *line);
+static void		ft_get_specifier(const char *format, va_list ap, t_line *line);
 static size_t	ft_manage_specifier(const char *format,
 					va_list ap, t_line *line);
 static void		ft_print_line(t_line *line);
@@ -27,26 +27,21 @@ int	ft_printf(const char *format, ...)
 	line.str = NULL;
 	line.len = 0;
 	va_start(ap, format);
-	ft_get_specifier(&format, ap, &line);
+	ft_get_specifier(format, ap, &line);
 	va_end(ap);
 	ft_print_line(&line);
 	return (line.len);
 }
 
-static void	ft_get_specifier(const char **format, va_list ap, t_line *line)
+static void	ft_get_specifier(const char *format, va_list ap, t_line *line)
 {
-	const char	*str;
-	size_t		i;
-
-	str = *format;
-	i = 0;
-	while (str[i])
+	while (*format)
 	{
-		if (str[i] == '%')
-			i += ft_manage_specifier((str + i), ap, line);
-		else if (str[i])
-			ft_add_char(&line->str, ft_char_new(str[i]), line);
-		i++;
+		if (*format == '%')
+			ft_manage_specifier(++format, ap, line);
+		else if (*format)
+			ft_add_char(&line->str, ft_char_new(*format), line);
+		format++;
 	}
 }
 

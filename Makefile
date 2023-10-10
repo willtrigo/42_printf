@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 23:32:25 by dande-je          #+#    #+#              #
-#    Updated: 2023/10/09 05:08:08 by dande-je         ###   ########.org.br    #
+#    Updated: 2023/10/10 04:47:15 by dande-je         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS_SPECIFIER_BONUS_DIR	:= bonus/utils/specifier_utils/
 #******************************************************************************#
 
 CC							:= cc
-CFLAGS						:= -Wall -Wextra -Werror
+CFLAGS						:= -Wall -Wextra -Werror -O3
 LIB							:= ar -rcs
 
 #******************************************************************************#
@@ -46,6 +46,7 @@ MAKE_NOPRINT				:= $(MAKE) --no-print-directory
 NAME						:= libftprintf.a
 
 HEADER						:= $(addprefix $(INCLUDES_DIR), ft_printf.h)
+
 SRCS_MAIN_FILES				:= ft_printf.c
 SRCS_UTILS_FILES			:= ft_line_utils.c
 SRCS_SPECIFIER_FILES		:= ft_cast_char.c\
@@ -54,6 +55,7 @@ SRCS_SPECIFIER_FILES		:= ft_cast_char.c\
 								ft_cast_int.c
 
 HEADER_BONUS				:= $(addprefix $(INCLUDES_DIR), ft_printf_bonus.h)
+
 SRCS_MAIN_BONUS_FILES		:= ft_printf_bonus.c
 SRCS_UTILS_BONUS_FILES		:= ft_line_utils_bonus.c
 SRCS_SPECIFIER_BONUS_FILES	:= ft_cast_char_bonus.c\
@@ -95,12 +97,10 @@ $(OBJS_DIR)%.o : $(SRCS_MAIN_DIR)%.c
 								@$(MKDIR) $(OBJS_DIR)
 								$(CC) $(CFLAGS) -I $(HEADER) -c $< -o $@
 								$(LIB) $(NAME) $@
-
 $(OBJS_DIR)%.o : $(SRCS_UTILS_DIR)%.c
 								@$(MKDIR) $(OBJS_DIR)
 								$(CC) $(CFLAGS) -I $(HEADER) -c $< -o $@
 								$(LIB) $(NAME) $@
-
 $(OBJS_DIR)%.o : $(SRCS_SPECIFIER_DIR)%.c
 								@$(MKDIR) $(OBJS_DIR)
 								$(CC) $(CFLAGS) -I $(HEADER) -c $< -o $@
@@ -110,12 +110,10 @@ $(OBJS_DIR)%.o : $(SRCS_MAIN_BONUS_DIR)%.c
 								@$(MKDIR) $(OBJS_DIR)
 								$(CC) $(CFLAGS) -I $(HEADER) -c $< -o $@
 								$(LIB) $(NAME) $@
-
 $(OBJS_DIR)%.o : $(SRCS_UTILS_BONUS_DIR)%.c
 								@$(MKDIR) $(OBJS_DIR)
 								$(CC) $(CFLAGS) -I $(HEADER) -c $< -o $@
 								$(LIB) $(NAME) $@
-
 $(OBJS_DIR)%.o : $(SRCS_SPECIFIER_BONUS_DIR)%.c
 								@$(MKDIR) $(OBJS_DIR)
 								$(CC) $(CFLAGS) -I $(HEADER) -c $< -o $@
