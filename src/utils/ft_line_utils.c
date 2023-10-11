@@ -6,58 +6,57 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:13:52 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/09 05:11:29 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/11 04:35:50 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ft_printf.h"
 
-void	ft_add_char(t_line_char **line_char,
-			t_line_char *char_new, t_line *line)
+void	ft_add_c(t_ln_c **ln_c, t_ln_c *c_new, t_ln *ln)
 {
-	t_line_char	*line_temp;
+	t_ln_c	*ln_temp;
 
-	if (char_new)
+	if (c_new)
 	{
-		if (!*line_char)
-			*line_char = char_new;
+		if (!*ln_c)
+			*ln_c = c_new;
 		else
 		{
-			line_temp = *line_char;
-			while (line_temp->next)
-				line_temp = line_temp->next;
-			line_temp->next = char_new;
+			ln_temp = *ln_c;
+			while (ln_temp->next)
+				ln_temp = ln_temp->next;
+			ln_temp->next = c_new;
 		}
 	}
-	line->len++;
+	ln->len++;
 }
 
-t_line_char	*ft_char_new(char c)
+t_ln_c	*ft_c_new(char c)
 {
-	t_line_char	*char_new;
+	t_ln_c	*c_new;
 
-	char_new = malloc(sizeof(t_line_char));
-	if (!char_new)
+	c_new = malloc(sizeof(t_ln_c));
+	if (!c_new)
 	{
-		free(char_new);
+		free(c_new);
 		return (NULL);
 	}
-	char_new->c = c;
-	char_new->next = NULL;
-	return (char_new);
+	c_new->c = c;
+	c_new->next = NULL;
+	return (c_new);
 }
 
-char	*free_line(t_line_char *line_char)
+char	*free_ln(t_ln_c *ln_c)
 {
-	t_line_char	*line_char_temp;
+	t_ln_c	*ln_c_temp;
 
-	line_char_temp = line_char;
-	while (line_char_temp)
+	ln_c_temp = ln_c;
+	while (ln_c_temp)
 	{
-		line_char_temp = line_char_temp->next;
-		free(line_char);
-		line_char = line_char_temp;
+		ln_c_temp = ln_c_temp->next;
+		free(ln_c);
+		ln_c = ln_c_temp;
 	}
-	line_char_temp = NULL;
+	ln_c_temp = NULL;
 	return (NULL);
 }
