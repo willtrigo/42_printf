@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/11 04:31:40 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/11 07:53:29 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 typedef struct s_ln_c	t_ln_c;
 struct s_ln_c
 {
-	char		c;
+	char	c;
 	t_ln_c	*next;
 };
 
@@ -41,7 +41,7 @@ typedef struct s_ln		t_ln;
 struct s_ln
 {
 	t_ln_c	*str;
-	size_t		len;
+	size_t	len;
 };
 
 int		ft_printf(const char *format, ...);
