@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/12 09:43:46 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/12 15:00:55 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,19 @@
 # define ON 1
 # define OFF 0
 
-typedef unsigned long int	t_uli;
-typedef unsigned int		t_ui;
-typedef long int			t_li;
+typedef unsigned long int		t_uli;
+typedef unsigned long long int	t_ulli;
+typedef unsigned int			t_ui;
+typedef long int				t_li;
 
-typedef struct s_line_chr	t_line_chr;
+typedef struct s_line_chr		t_line_chr;
 struct s_line_chr
 {
 	char		chr;
 	t_line_chr	*next;
 };
 
-typedef struct s_line		t_line;
+typedef struct s_line			t_line;
 struct s_line
 {
 	t_line_chr	*str;

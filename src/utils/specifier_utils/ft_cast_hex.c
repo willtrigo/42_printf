@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/12 11:01:29 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/12 15:17:45 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ static void	ft_get_hex(t_line *line, t_uli hex, int len, int spec);
 
 size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 {
-	t_uli	hex;
+	const t_uli	hex = va_arg(ap, t_uli);
 
-	hex = va_arg(ap, t_uli);
 	if (spec == CHK_HEX_PTR)
 	{
 		if (!hex)
@@ -34,11 +33,10 @@ size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 
 size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
 {
-	t_ui	hex;
+	const t_ulli	hex = (t_ulli)va_arg(ap, t_ui);
 
-	hex = va_arg(ap, t_ui);
-	if (hex == '0')
-		ft_add_str(NULL_STR, line);
+	if (!hex)
+		ft_add_str("0", line);
 	else
 	{
 		if (spec == CHK_HEX_LW)
