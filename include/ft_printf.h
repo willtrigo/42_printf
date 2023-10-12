@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/11 07:53:29 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/12 09:43:46 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define FAIL -1
 # define NEXT_BYTE 1
 # define NULL_BYTE 1
 # define JUMP_SPEC 1
@@ -29,30 +30,38 @@
 # define CHK_INT_U 2
 # define HEX_LW "0123456789abcdef"
 # define HEX_UP "0123456789ABCDEF"
+# define ON 1
+# define OFF 0
 
-typedef struct s_ln_c	t_ln_c;
-struct s_ln_c
+typedef unsigned long int	t_uli;
+typedef unsigned int		t_ui;
+typedef long int			t_li;
+
+typedef struct s_line_chr	t_line_chr;
+struct s_line_chr
 {
-	char	c;
-	t_ln_c	*next;
+	char		chr;
+	t_line_chr	*next;
 };
 
-typedef struct s_ln		t_ln;
-struct s_ln
+typedef struct s_line		t_line;
+struct s_line
 {
-	t_ln_c	*str;
-	size_t	len;
+	t_line_chr	*str;
+	size_t		len;
 };
 
-int		ft_printf(const char *format, ...);
-void	ft_add_c(t_ln_c **ln_c, t_ln_c *c_new, t_ln *ln);
-t_ln_c	*ft_c_new(char c);
-char	*free_ln(t_ln_c *ln_c);
-size_t	ft_cast_c(va_list ap, t_ln *ln);
-size_t	ft_cast_str(va_list ap, t_ln *ln);
-void	ft_add_str(char *str, t_ln *ln);
-size_t	ft_cast_hex_ptr(va_list ap, t_ln *ln, int spec);
-size_t	ft_cast_hex_lw_up(va_list ap, t_ln *ln, int spec);
-size_t	ft_cast_int(va_list ap, t_ln *ln, int spec);
+int			ft_printf(const char *format, ...);
+void		ft_add_chr(t_line_chr **line_chr,
+				t_line_chr *chr_new, t_line *line);
+t_line_chr	*ft_chr_new(char c);
+char		*free_line(t_line_chr *line_chr);
+size_t		ft_cast_chr(va_list ap, t_line *line);
+size_t		ft_cast_str(va_list ap, t_line *line);
+void		ft_add_str(char *str, t_line *line);
+size_t		ft_cast_hex_ptr(va_list ap, t_line *line, int spec);
+size_t		ft_cast_hex_lw_up(va_list ap, t_line *line, int spec);
+size_t		ft_cast_int(va_list ap, t_line *line, int spec);
+size_t		ft_cast_per(va_list ap, t_line *line, int spec);
 
 #endif

@@ -6,57 +6,57 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:13:52 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/11 04:35:50 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/12 09:33:21 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ft_printf.h"
 
-void	ft_add_c(t_ln_c **ln_c, t_ln_c *c_new, t_ln *ln)
+void	ft_add_chr(t_line_chr **line_chr, t_line_chr *chr_new, t_line *line)
 {
-	t_ln_c	*ln_temp;
+	t_line_chr	*line_temp;
 
-	if (c_new)
+	if (chr_new)
 	{
-		if (!*ln_c)
-			*ln_c = c_new;
+		if (!*line_chr)
+			*line_chr = chr_new;
 		else
 		{
-			ln_temp = *ln_c;
-			while (ln_temp->next)
-				ln_temp = ln_temp->next;
-			ln_temp->next = c_new;
+			line_temp = *line_chr;
+			while (line_temp->next)
+				line_temp = line_temp->next;
+			line_temp->next = chr_new;
 		}
 	}
-	ln->len++;
+	line->len++;
 }
 
-t_ln_c	*ft_c_new(char c)
+t_line_chr	*ft_chr_new(char chr)
 {
-	t_ln_c	*c_new;
+	t_line_chr	*chr_new;
 
-	c_new = malloc(sizeof(t_ln_c));
-	if (!c_new)
+	chr_new = malloc(sizeof(t_line_chr));
+	if (!chr_new)
 	{
-		free(c_new);
+		free(chr_new);
 		return (NULL);
 	}
-	c_new->c = c;
-	c_new->next = NULL;
-	return (c_new);
+	chr_new->chr = chr;
+	chr_new->next = NULL;
+	return (chr_new);
 }
 
-char	*free_ln(t_ln_c *ln_c)
+char	*free_line(t_line_chr *line_chr)
 {
-	t_ln_c	*ln_c_temp;
+	t_line_chr	*line_chr_temp;
 
-	ln_c_temp = ln_c;
-	while (ln_c_temp)
+	line_chr_temp = line_chr;
+	while (line_chr_temp)
 	{
-		ln_c_temp = ln_c_temp->next;
-		free(ln_c);
-		ln_c = ln_c_temp;
+		line_chr_temp = line_chr_temp->next;
+		free(line_chr);
+		line_chr = line_chr_temp;
 	}
-	ln_c_temp = NULL;
+	line_chr_temp = NULL;
 	return (NULL);
 }

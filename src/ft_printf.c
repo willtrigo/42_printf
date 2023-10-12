@@ -6,90 +6,89 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:17:33 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/11 04:35:00 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/12 10:09:19 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-static void		ft_get_spec(const char *format, va_list ap, t_ln *ln);
-static size_t	ft_mng_spec(const char *format, va_list ap, t_ln *ln);
-static void		ft_print_ln(t_ln *ln);
+static void		ft_get_spec(const char *format, va_list ap, t_line *line);
+static size_t	ft_parse_spec(const char *format, va_list ap, t_line *line);
+static void		ft_print_line(t_line *line);
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
-	t_ln	ln;
+	t_line	line;
 
 	if (!format)
-		return (-1);
-	ln.str = NULL;
-	ln.len = 0;
+		return (FAIL);
+	line.str = NULL;
+	line.len = 0;
 	va_start(ap, format);
-	ft_get_spec(format, ap, &ln);
+	ft_get_spec(format, ap, &line);
 	va_end(ap);
-	ft_print_ln(&ln);
-	return (ln.len);
+	ft_print_line(&line);
+	return (line.len);
 }
 
-static void	ft_get_spec(const char *format, va_list ap, t_ln *ln)
+static void	ft_get_spec(const char *format, va_list ap, t_line *line)
 {
 	while (*format)
 	{
 		if (*format == '%')
-			ft_mng_spec(++format, ap, ln);
-		else if (*format)
-			ft_add_c(&ln->str, ft_c_new(*format), ln);
+			ft_parse_spec(++format, ap, line);
+		else
+			ft_add_chr(&line->str, ft_chr_new(*format), line);
 		format++;
 	}
 }
 
-static size_t	ft_mng_spec(const char *format, va_list ap, t_ln *ln)
+static size_t	ft_parse_spec(const char *format, va_list ap, t_line *line)
 {
-	char	next_c;
+	const char	next_chr = *format;
 
-	next_c = *(format + NEXT_BYTE);
-	if (next_c == 'c')
-		return (ft_cast_c(ap, ln));
-	if (next_c == 's')
-		return (ft_cast_str(ap, ln));
-	if (next_c == 'p')
-		return (ft_cast_hex_ptr(ap, ln, CHK_HEX_PTR));
-	if (next_c == 'd' || next_c == 'i')
-		return (ft_cast_int(ap, ln, CHK_INT_D_I));
-	if (next_c == 'u')
-		return (ft_cast_int(ap, ln, CHK_INT_U));
-	if (next_c == 'x')
-		return (ft_cast_hex_lw_up(ap, ln, CHK_HEX_LW));
-	if (next_c == 'X')
-		return (ft_cast_hex_lw_up(ap, ln, CHK_HEX_UP));
-	if (next_c == '%')
-		ft_add_c(&ln->str, ft_c_new('%'), ln);
+	if (next_chr == 'c')
+		return (ft_cast_chr(ap, line));
+	if (next_chr == 's')
+		return (ft_cast_str(ap, line));
+	if (next_chr == 'p')
+		return (ft_cast_hex_ptr(ap, line, CHK_HEX_PTR));
+	if (next_chr == 'd' || next_chr == 'i')
+		return (ft_cast_int(ap, line, CHK_INT_D_I));
+	if (next_chr == 'u')
+		return (ft_cast_int(ap, line, CHK_INT_U));
+	if (next_chr == 'x')
+		return (ft_cast_hex_lw_up(ap, line, CHK_HEX_LW));
+	if (next_chr == 'X')
+		return (ft_cast_hex_lw_up(ap, line, CHK_HEX_UP));
+	if (next_chr == '%')
+		return (ft_cast_per(ap, line, OFF));
 	return (JUMP_SPEC);
 }
 
-static void	ft_print_ln(t_ln *ln)
+static void	ft_print_line(t_line *line)
 {
-	t_ln_c	*ln_temp;
-	char	*ln_new;
-	size_t	i;
+	t_line_chr	*line_temp;
+	char		*line_new;
+	size_t		i;
 
-	ln_new = malloc(sizeof(char) * (ln->len + NULL_BYTE));
-	if (!ln_new)
+	line_new = malloc(sizeof(char) * (line->len + NULL_BYTE));
+	if (!line_new)
 	{
-		free(ln_new);
+		free(line_new);
 		return ;
 	}
 	i = 0;
-	ln_temp = NULL;
-	while (ln->str)
+	line_temp = NULL;
+	while (line->str)
 	{
-		ln_temp = ln->str->next;
-		ln_new[i++] = ln->str->c;
-		free(ln->str);
-		ln->str = ln_temp;
+		line_temp = line->str->next;
+		line_new[i++] = line->str->chr;
+		free(line->str);
+		line->str = line_temp;
 	}
-	ln_new[i] = '\0';
-	write(STDOUT_FILENO, ln_new, ln->len);
-	free(ln_new);
+	line_new[i] = '\0';
+	write(STDOUT_FILENO, line_new, line->len);
+	free(line_new);
 }
