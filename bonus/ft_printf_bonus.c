@@ -6,15 +6,15 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:17:33 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/09 05:00:28 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/12 15:19:38 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf_bonus.h"
 
-static void		ft_get_specifier(const char **format, va_list ap, t_line *line);
-static size_t	ft_manage_specifier(const char *format,
-					va_list ap, t_line *line);
+static void		ft_get_spec(const char *format, va_list ap, t_line *line);
+static size_t	ft_parse_spec(const char *format, va_list ap, t_line *line);
+static size_t	ft_parse_combination(const char *format, t_line *line);
 static void		ft_print_line(t_line *line);
 
 int	ft_printf(const char *format, ...)
@@ -23,61 +23,93 @@ int	ft_printf(const char *format, ...)
 	t_line	line;
 
 	if (!format)
-		return (-1);
+		return (FAIL);
 	line.str = NULL;
 	line.len = 0;
+	line.minus = 0;
+	line.plus = 0;
+	line.hash = 0;
+	line.space = 0;
+	line.zero = 0;
+	line.width = 0;
+	line.prec = 0;
 	va_start(ap, format);
-	ft_get_specifier(&format, ap, &line);
+	ft_get_spec(format, ap, &line);
 	va_end(ap);
 	ft_print_line(&line);
 	return (line.len);
 }
 
-static void	ft_get_specifier(const char **format, va_list ap, t_line *line)
+static void	ft_get_spec(const char *format, va_list ap, t_line *line)
 {
-	const char	*str;
-	size_t		i;
+	size_t	jump;
 
-	str = *format;
-	i = 0;
-	while (str[i])
+	jump = 0;
+	while (*format)
 	{
-		if (str[i] == '%')
-			i += ft_manage_specifier((str + i), ap, line);
-		else if (str[i])
-			ft_add_char(&line->str, ft_char_new(str[i]), line);
-		i++;
+		if (*format == '%')
+		{
+			jump = 0;
+			jump += ft_parse_spec(++format, ap, line);
+			format += jump;
+		}
+		else
+			ft_add_chr(&line->str, ft_chr_new(*format), line);
+		format++;
 	}
 }
 
-static size_t	ft_manage_specifier(const char *format,
-					va_list ap, t_line *line)
+static size_t	ft_parse_spec(const char *format, va_list ap, t_line *line)
 {
-	char	next_char;
+	const t_parse_spec	parse_spec[] = {
+	{'c', &ft_cast_chr, OFF},
+	{'s', &ft_cast_str, OFF},
+	{'p', &ft_cast_hex_ptr, CHK_HEX_PTR},
+	{'d', &ft_cast_int, CHK_INT_D_I},
+	{'i', &ft_cast_int, CHK_INT_D_I},
+	{'u', &ft_cast_int, CHK_INT_U},
+	{'x', &ft_cast_hex_lw_up, CHK_HEX_LW},
+	{'X', &ft_cast_hex_lw_up, CHK_HEX_UP},
+	{'%', &ft_cast_per, OFF}
+	};
+	char				next_chr;
+	size_t				jump;
+	ssize_t				i;
 
-	next_char = *(format + NEXT_BYTE);
-	if (next_char == 'c')
-		return (ft_cast_char(ap, line));
-	if (next_char == 's')
-		return (ft_cast_str(ap, line));
-	if (next_char == 'p')
-		return (ft_cast_hex_ptr(ap, line, CHECK_HEX_PTR));
-	if (next_char == 'd' || next_char == 'i')
-		return (ft_cast_int(ap, line, CHECK_INT_D_I));
-	if (next_char == 'u')
-		return (ft_cast_int(ap, line, CHECK_INT_U));
-	if (next_char == 'x')
-		return (ft_cast_hex_lw_up(ap, line, CHECK_HEX_LW));
-	if (next_char == 'X')
-		return (ft_cast_hex_lw_up(ap, line, CHECK_HEX_UP));
-	if (next_char == '%')
-		ft_add_char(&line->str, ft_char_new('%'), line);
-	return (JUMP_SPECIFIER);
+	jump = 0;
+	i = 9;
+	jump = ft_parse_combination(format, line);
+	next_chr = *(format + jump);
+	while (--i > -1)
+		if (next_chr == parse_spec[i].chr)
+			parse_spec[i].cast_fn(ap, line, parse_spec[i].spec);
+	return (jump);
+}
+
+static size_t	ft_parse_combination(const char *format, t_line *line)
+{
+	const char	next_chr = *format;
+
+	if (next_chr == 'c' || next_chr == 's' || next_chr == 'p'\
+		|| next_chr == 'd' || next_chr == 'i' || next_chr == 'x'\
+		|| next_chr == 'X' || next_chr == '%')
+		return (0);
+	while (*format)
+	{
+		if (*format == '#')
+		{
+			line->hash = ON;
+			return (JUMP_SPEC);
+			break ;
+		}
+		format++;
+	}
+	return (0);
 }
 
 static void	ft_print_line(t_line *line)
 {
-	t_line_char	*line_temp;
+	t_line_chr	*line_temp;
 	char		*line_new;
 	size_t		i;
 
@@ -92,7 +124,7 @@ static void	ft_print_line(t_line *line)
 	while (line->str)
 	{
 		line_temp = line->str->next;
-		line_new[i++] = line->str->c;
+		line_new[i++] = line->str->chr;
 		free(line->str);
 		line->str = line_temp;
 	}

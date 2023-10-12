@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cast_str_bonus.c                                :+:      :+:    :+:   */
+/*   ft_cast_per_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/05 04:50:00 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/12 11:50:59 by dande-je         ###   ########.org.br   */
+/*   Created: 2023/10/11 08:37:36 by dande-je          #+#    #+#             */
+/*   Updated: 2023/10/12 11:55:23 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
 
-size_t	ft_cast_str(va_list ap, t_line *line, int spec)
+size_t	ft_cast_per(va_list ap, t_line *line, int spec)
 {
-	char	*str;
-
+	(void)ap;
 	(void)spec;
-	str = va_arg(ap, char *);
-	if (!str)
-		str = NULL_STR;
-	ft_add_str(str, line);
+	ft_add_chr(&line->str, ft_chr_new('%'), line);
 	return (JUMP_SPEC);
-}
-
-void	ft_add_str(char *str, t_line *line)
-{
-	while (*str)
-		ft_add_chr(&line->str, ft_chr_new(*(str++)), line);
 }

@@ -6,58 +6,58 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:13:52 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/09 05:12:04 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/12 11:48:28 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ft_printf_bonus.h"
 
-void	ft_add_char(t_line_char **line_char,
-			t_line_char *char_new, t_line *line)
+void	ft_add_chr(t_line_chr **line_chr,
+			t_line_chr *chr_new, t_line *line)
 {
-	t_line_char	*line_temp;
+	t_line_chr	*line_temp;
 
-	if (char_new)
+	if (chr_new)
 	{
-		if (!*line_char)
-			*line_char = char_new;
+		if (!*line_chr)
+			*line_chr = chr_new;
 		else
 		{
-			line_temp = *line_char;
+			line_temp = *line_chr;
 			while (line_temp->next)
 				line_temp = line_temp->next;
-			line_temp->next = char_new;
+			line_temp->next = chr_new;
 		}
 	}
 	line->len++;
 }
 
-t_line_char	*ft_char_new(char c)
+t_line_chr	*ft_chr_new(char chr)
 {
-	t_line_char	*char_new;
+	t_line_chr	*chr_new;
 
-	char_new = malloc(sizeof(t_line_char));
-	if (!char_new)
+	chr_new = malloc(sizeof(t_line_chr));
+	if (!chr_new)
 	{
-		free(char_new);
+		free(chr_new);
 		return (NULL);
 	}
-	char_new->c = c;
-	char_new->next = NULL;
-	return (char_new);
+	chr_new->chr = chr;
+	chr_new->next = NULL;
+	return (chr_new);
 }
 
-char	*free_line(t_line_char *line_char)
+char	*free_line(t_line_chr *line_chr)
 {
-	t_line_char	*line_char_temp;
+	t_line_chr	*line_chr_temp;
 
-	line_char_temp = line_char;
-	while (line_char_temp)
+	line_chr_temp = line_chr;
+	while (line_chr_temp)
 	{
-		line_char_temp = line_char_temp->next;
-		free(line_char);
-		line_char = line_char_temp;
+		line_chr_temp = line_chr_temp->next;
+		free(line_chr);
+		line_chr = line_chr_temp;
 	}
-	line_char_temp = NULL;
+	line_chr_temp = NULL;
 	return (NULL);
 }
