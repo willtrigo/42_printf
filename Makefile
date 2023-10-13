@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 23:32:25 by dande-je          #+#    #+#              #
-#    Updated: 2023/10/12 09:59:46 by dande-je         ###   ########.org.br    #
+#    Updated: 2023/10/13 19:28:25 by dande-je         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRCS_SPEC_FILES			:= ft_cast_chr.c\
 HEADER_BONUS				:= $(addprefix $(INCLUDES_DIR), ft_printf_bonus.h)
 
 SRCS_MAIN_BONUS_FILES		:= ft_printf_bonus.c
-SRCS_UTILS_BONUS_FILES	:= ft_line_utils_bonus.c
+SRCS_UTILS_BONUS_FILES	:= ft_line_utils_bonus.c ft_parse_combination.c
 SRCS_SPEC_BONUS_FILES		:= ft_cast_chr_bonus.c\
 							ft_cast_str_bonus.c\
 							ft_cast_hex_bonus.c\
