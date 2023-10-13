@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 04:50:00 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/12 11:50:59 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/13 19:14:34 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	ft_cast_str(va_list ap, t_line *line, int spec)
 	if (!str)
 		str = NULL_STR;
 	ft_add_str(str, line);
-	return (JUMP_SPEC);
+	return (JUMP);
 }
 
 void	ft_add_str(char *str, t_line *line)
