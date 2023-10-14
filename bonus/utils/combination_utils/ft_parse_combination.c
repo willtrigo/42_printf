@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:25:55 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/14 05:19:26 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/14 05:46:46 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ size_t	ft_parse_combination(const char *format, t_line *line)
 			return (ft_parse_space(next_chr, line));
 		else if (*next_chr == '+')
 			return (ft_parse_plus(next_chr, line));
+		else if (*next_chr == '-')
+			return (ft_parse_minus(next_chr, line));
 		next_chr++;
 	}
 	return (OFF);
