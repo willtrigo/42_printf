@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/13 19:27:55 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/14 05:13:37 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void		ft_add_chr(t_line_chr **line_chr,
 t_line_chr	*ft_chr_new(char chr);
 char		*free_line(t_line_chr *line_chr);
 size_t		ft_parse_combination(const char *format, t_line *line);
+ssize_t		ft_parse_plus(const char *format, t_line *line);
+ssize_t		ft_parse_space(const char *format, t_line *line);
 size_t		ft_cast_chr(va_list ap, t_line *line, int spec);
 size_t		ft_cast_str(va_list ap, t_line *line, int spec);
 void		ft_add_str(char *str, t_line *line);
