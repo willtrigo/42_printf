@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 04:50:00 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/13 19:14:34 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/14 01:22:35 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ size_t	ft_cast_str(va_list ap, t_line *line, int spec)
 
 	(void)spec;
 	str = va_arg(ap, char *);
+	if (line->space == ON && str == NULL)
+	{
+		line->space = OFF;
+		ft_add_chr(&line->str, ft_chr_new(' '), line);
+	}
 	if (!str)
 		str = NULL_STR;
 	ft_add_str(str, line);
