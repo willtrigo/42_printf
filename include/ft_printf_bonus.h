@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 08:45:07 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/15 09:01:12 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void		ft_get_spec(const char *format, va_list ap,
 				t_line *line, size_t jump);
 size_t		ft_parse_spec(const char *format, va_list ap, t_line *line);
 size_t		ft_parse_combination(const char *format, t_line *line, int spec_i);
+ssize_t		ft_parse_hash(const char *format, t_line *line);
 ssize_t		ft_parse_plus(const char *format, t_line *line);
 ssize_t		ft_parse_space(const char *format, t_line *line);
 ssize_t		ft_parse_minus(const char *format, t_line *line);
