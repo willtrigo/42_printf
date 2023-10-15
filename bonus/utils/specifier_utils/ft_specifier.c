@@ -6,13 +6,14 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 05:59:50 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 05:32:27 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/15 08:45:10 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
 
-static int	ft_spec_len(const t_parse_spec *parse_spec);
+static int					ft_spec_len(const t_parse_spec_struct *parse_spec);
+static t_parse_spec_struct	ft_parse_spec_init(void);
 
 void	ft_get_spec(const char *format, va_list ap, t_line *line, size_t jump)
 {
@@ -32,36 +33,42 @@ void	ft_get_spec(const char *format, va_list ap, t_line *line, size_t jump)
 
 size_t	ft_parse_spec(const char *format, va_list ap, t_line *line)
 {
-	const t_parse_spec	parse_spec[] = {
-	{'c', &ft_cast_chr, OFF},
-	{'s', &ft_cast_str, OFF},
-	{'p', &ft_cast_hex_ptr, CHK_HEX_PTR},
-	{'d', &ft_cast_int, CHK_INT_D_I},
-	{'i', &ft_cast_int, CHK_INT_D_I},
-	{'u', &ft_cast_int, CHK_INT_U},
-	{'x', &ft_cast_hex_lw_up, CHK_HEX_LW},
-	{'X', &ft_cast_hex_lw_up, CHK_HEX_UP},
-	{'%', &ft_cast_per, OFF},
-	{'\0', NULL, OFF}
-	};
-	size_t				jump;
-	int					spec_len;
+	const t_parse_spec_struct	parse_spec = ft_parse_spec_init();
+	size_t						jump;
+	int							spec_len;
 
 	jump = 0;
-	spec_len = ft_spec_len(parse_spec);
+	spec_len = ft_spec_len(&parse_spec);
 	jump = ft_parse_combination(format, line, DEFAULT_INIT);
 	while (--spec_len > FAIL)
-		if (*(format + jump) == parse_spec[spec_len].chr)
-			parse_spec[spec_len].cast_fn(ap, line, parse_spec[spec_len].spec);
+		if (*(format + jump) == parse_spec.spec[spec_len].chr)
+			parse_spec.spec[spec_len].cast_fn(ap, line,
+				parse_spec.spec[spec_len].spec);
 	return (jump);
 }
 
-static int	ft_spec_len(const t_parse_spec *parse_spec)
+static t_parse_spec_struct	ft_parse_spec_init(void)
+{
+	return ((t_parse_spec_struct){.spec = {
+			{'c', &ft_cast_chr, OFF},
+			{'s', &ft_cast_str, OFF},
+			{'p', &ft_cast_hex_ptr, CHK_HEX_PTR},
+			{'d', &ft_cast_int, CHK_INT_D_I},
+			{'i', &ft_cast_int, CHK_INT_D_I},
+			{'u', &ft_cast_int, CHK_INT_U},
+			{'x', &ft_cast_hex_lw_up, CHK_HEX_LW},
+			{'X', &ft_cast_hex_lw_up, CHK_HEX_UP},
+			{'%', &ft_cast_per, OFF},
+			{'\0', NULL, OFF}
+		}});
+}
+
+static int	ft_spec_len(const t_parse_spec_struct *parse_spec)
 {
 	int	len;
 
 	len = 0;
-	while (parse_spec[len].chr)
+	while (parse_spec->spec[len].chr)
 		len++;
 	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 05:29:11 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/15 08:45:07 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define OFF 0
 # define SPEC "cspdiuxX%"
 # define DEFAULT_INIT 0
+# define SPEC_SIZE 10
 
 typedef unsigned long int			t_uli;
 typedef unsigned long long int		t_ulli;
@@ -69,6 +70,12 @@ struct s_parse_spec
 	char			chr;
 	t_cast_function	cast_fn;
 	int				spec;
+};
+
+typedef struct s_parse_spec_struct	t_parse_spec_struct;
+struct s_parse_spec_struct
+{
+	t_parse_spec	spec[SPEC_SIZE];
 };
 
 int			ft_printf(const char *format, ...);
