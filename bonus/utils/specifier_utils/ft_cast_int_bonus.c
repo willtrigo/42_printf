@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:14:19 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/16 11:00:14 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/16 11:09:50 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ static void	ft_unbr_add(t_ui unbr, t_line *line)
 static void	ft_print_nbr_width(t_line *line, t_lli nbr)
 {
 	if (line->width >= ON)
-		while ((line->width-- - ft_get_width_int(nbr) > OFF))
+		while ((line->width-- - ft_get_width_int_len(nbr) > OFF))
 			ft_chr_add(&line->str, ft_chr_new(' '), line);
 }

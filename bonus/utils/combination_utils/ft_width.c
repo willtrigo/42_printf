@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 09:19:09 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 23:52:43 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/16 11:07:35 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	ft_get_width(const char *format, ssize_t format_init,
 	return (nbr);
 }
 
-t_lli	ft_get_width_int(t_lli nbr)
+t_lli	ft_get_width_int_len(t_lli nbr)
 {
 	t_lli	nbr_i;
 
