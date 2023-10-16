@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 22:34:19 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/15 23:52:59 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef unsigned long int			t_uli;
 typedef unsigned long long int		t_ulli;
 typedef unsigned int				t_ui;
 typedef long int					t_li;
+typedef long long int				t_lli;
 
 typedef struct s_line_chr			t_line_chr;
 struct s_line_chr
@@ -88,6 +89,7 @@ ssize_t		ft_parse_plus(const char *format, t_line *line);
 ssize_t		ft_parse_space(const char *format, t_line *line);
 ssize_t		ft_parse_minus(const char *format, t_line *line);
 ssize_t		ft_parse_width(const char *format, t_line *line);
+t_lli		ft_get_width_int(t_lli nbr);
 size_t		ft_cast_chr(va_list ap, t_line *line, int spec);
 size_t		ft_cast_str(va_list ap, t_line *line, int spec);
 void		ft_str_add(char *str, t_line *line);

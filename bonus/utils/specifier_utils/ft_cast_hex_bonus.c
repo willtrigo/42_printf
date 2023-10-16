@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 19:59:30 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/16 10:44:00 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 			ft_get_hex(line, hex, 0, spec);
 		}
 	}
+	if (line->width >= ON)
+		while (line->width-- - ft_get_width_int((t_ulli)hex) > OFF)
+			ft_chr_add(&line->str, ft_chr_new(' '), line);
 	return (JUMP);
 }
 
@@ -48,6 +51,9 @@ size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
 		else
 			ft_get_hex(line, hex, 0, CHK_HEX_UP);
 	}
+	if (line->width >= ON)
+		while ((line->width-- - 10) > OFF)
+			ft_chr_add(&line->str, ft_chr_new(' '), line);
 	return (JUMP);
 }
 

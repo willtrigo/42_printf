@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:14:19 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 19:59:47 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/16 11:00:14 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	ft_nbr_add(int nbr, t_line *line);
 static void	ft_unbr_add(t_ui unbr, t_line *line);
+static void	ft_print_nbr_width(t_line *line, t_lli nbr);
 
 size_t	ft_cast_int(va_list ap, t_line *line, int spec)
 {
@@ -29,14 +30,14 @@ size_t	ft_cast_int(va_list ap, t_line *line, int spec)
 			ft_chr_add(&line->str, ft_chr_new(' '), line);
 		else if (nbr >= 0 && line->plus == ON)
 			ft_chr_add(&line->str, ft_chr_new('+'), line);
-		else if (nbr < 0 && line->minus == ON)
-			ft_chr_add(&line->str, ft_chr_new('-'), line);
 		ft_nbr_add(nbr, line);
+		ft_print_nbr_width(line, (t_lli)nbr);
 	}
 	else
 	{
 		unbr = va_arg(ap, t_ui);
 		ft_unbr_add(unbr, line);
+		ft_print_nbr_width(line, (t_lli)unbr);
 	}
 	return (JUMP);
 }
@@ -89,4 +90,11 @@ static void	ft_unbr_add(t_ui unbr, t_line *line)
 			ft_chr_add(&line->str, ft_chr_new(nbr_new % 10 + '0'), line);
 		}
 	}
+}
+
+static void	ft_print_nbr_width(t_line *line, t_lli nbr)
+{
+	if (line->width >= ON)
+		while ((line->width-- - ft_get_width_int(nbr) > OFF))
+			ft_chr_add(&line->str, ft_chr_new(' '), line);
 }

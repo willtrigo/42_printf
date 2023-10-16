@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 09:19:09 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 16:03:31 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/15 23:52:43 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,22 @@ static int	ft_get_width(const char *format, ssize_t format_init,
 	while (format_init++ < format_end)
 		nbr = (nbr * 10) + (*(format++) - '0');
 	return (nbr);
+}
+
+t_lli	ft_get_width_int(t_lli nbr)
+{
+	t_lli	nbr_i;
+
+	nbr_i = 0;
+	if (nbr <= 0)
+	{
+		nbr_i++;
+		nbr = -nbr;
+	}
+	while (nbr > 0)
+	{
+		nbr_i++;
+		nbr /= 10;
+	}
+	return (nbr_i);
 }
