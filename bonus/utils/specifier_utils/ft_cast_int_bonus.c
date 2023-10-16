@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:14:19 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 05:37:16 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/15 19:59:47 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ size_t	ft_cast_int(va_list ap, t_line *line, int spec)
 			ft_chr_add(&line->str, ft_chr_new('+'), line);
 		else if (nbr < 0 && line->minus == ON)
 			ft_chr_add(&line->str, ft_chr_new('-'), line);
-		line->space = OFF;
-		line->plus = OFF;
-		line->minus = OFF;
 		ft_nbr_add(nbr, line);
 	}
 	else
