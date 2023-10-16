@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 23:32:25 by dande-je          #+#    #+#              #
-#    Updated: 2023/10/15 09:01:34 by dande-je         ###   ########.org.br    #
+#    Updated: 2023/10/15 09:22:14 by dande-je         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,8 @@ SRCS_COMBINATION_UTILS_BONUS_FILES	:= ft_parse_combination.c\
 										ft_hash.c\
 										ft_plus.c\
 										ft_space.c\
-										ft_minus.c
+										ft_minus.c\
+										ft_width.c
 SRCS_SPEC_BONUS_FILES				:= ft_specifier.c\
 										ft_cast_chr_bonus.c\
 										ft_cast_str_bonus.c\
