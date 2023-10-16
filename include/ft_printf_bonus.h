@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 09:01:12 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/15 22:34:19 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ struct s_line_chr
 typedef struct s_line				t_line;
 struct s_line
 {
-	t_line_chr	*str;
-	ssize_t		len;
-	int			minus;
-	int			plus;
-	int			hash;
-	int			space;
-	int			zero;
-	int			width;
-	int			prec;
+	t_line_chr		*str;
+	ssize_t			len;
+	int				minus;
+	int				plus;
+	int				hash;
+	int				space;
+	int				zero;
+	int				width;
+	int				prec;
 };
 
 typedef size_t						(*t_cast_function)(va_list, t_line *, int);
@@ -87,6 +87,7 @@ ssize_t		ft_parse_hash(const char *format, t_line *line);
 ssize_t		ft_parse_plus(const char *format, t_line *line);
 ssize_t		ft_parse_space(const char *format, t_line *line);
 ssize_t		ft_parse_minus(const char *format, t_line *line);
+ssize_t		ft_parse_width(const char *format, t_line *line);
 size_t		ft_cast_chr(va_list ap, t_line *line, int spec);
 size_t		ft_cast_str(va_list ap, t_line *line, int spec);
 void		ft_str_add(char *str, t_line *line);
