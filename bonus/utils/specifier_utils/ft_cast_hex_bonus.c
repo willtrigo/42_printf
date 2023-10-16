@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 05:34:13 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/15 19:59:30 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
 			ft_str_add("0x", line);
 		else if (line->hash == ON && spec == CHK_HEX_UP)
 			ft_str_add("0X", line);
-		line->hash = OFF;
 		if (spec == CHK_HEX_LW)
 			ft_get_hex(line, hex, 0, CHK_HEX_LW);
 		else
 			ft_get_hex(line, hex, 0, CHK_HEX_UP);
-		line->hash = OFF;
 	}
 	return (JUMP);
 }
