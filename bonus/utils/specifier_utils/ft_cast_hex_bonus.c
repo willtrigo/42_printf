@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/16 16:34:32 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/17 16:52:37 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	ft_get_hex(t_line *line, t_uli hex, int len, int spec);
 static void	ft_flag_add_hex(t_line *line, int hex_len);
+static int	ft_get_hex_len(const t_uli hex);
 
 size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 {
@@ -44,11 +45,10 @@ size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
 	int				hex_len;
 	const t_ulli	hex = (t_ulli)va_arg(ap, t_ui);
 
-	hex_len = 1;
-	if (hex >= 16)
-		hex_len = ft_get_width_int_len(hex);
-	if (hex_len == 10)
-		hex_len = 8;
+	hex_len = ft_get_hex_len(hex);
+	if (line->width >= ON && line->zero >= ON)
+		while ((line->width-- - hex_len) > OFF)
+			ft_chr_add(&line->str, ft_chr_new('0'), line);
 	if (!hex)
 		ft_str_add("0", line);
 	else
@@ -90,4 +90,16 @@ static void	ft_flag_add_hex(t_line *line, int hex_len)
 	if (line->minus >= ON)
 		while ((line->width-- - hex_len) > OFF)
 			ft_chr_add(&line->str, ft_chr_new(' '), line);
+}
+
+static int	ft_get_hex_len(const t_uli hex)
+{
+	int	hex_len;
+
+	hex_len = 1;
+	if (hex >= 16)
+		hex_len = ft_get_width_int_len(hex);
+	if (hex_len == 10)
+		hex_len = 8;
+	return (hex_len);
 }
