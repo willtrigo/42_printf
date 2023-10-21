@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 05:59:50 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/21 00:59:00 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/21 01:32:06 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static size_t				ft_parse_spec(const char *format,
 								va_list ap, t_line *line);
-static int					ft_spec_len(const t_parse_spec_struct *parse_spec,
-								int len);
 static t_parse_spec_struct	ft_parse_spec_init(void);
 
 void	ft_get_spec(const char *format, va_list ap, t_line *line)
@@ -35,7 +33,7 @@ static size_t	ft_parse_spec(const char *format, va_list ap, t_line *line)
 	const t_parse_spec_struct	parse_spec = ft_parse_spec_init();
 	int							spec_len;
 
-	spec_len = ft_spec_len(&parse_spec, DEFAULT_INIT);
+	spec_len = SPEC_SIZE;
 	while (--spec_len > FAIL)
 		if (*format == parse_spec.spec[spec_len].chr)
 			parse_spec.spec[spec_len].cast_fn(ap, line,
@@ -57,11 +55,4 @@ static t_parse_spec_struct	ft_parse_spec_init(void)
 			{'%', &ft_cast_per, OFF},
 			{'\0', NULL, OFF}
 		}});
-}
-
-static int	ft_spec_len(const t_parse_spec_struct *parse_spec, int len)
-{
-	while (parse_spec->spec[len].chr)
-		len++;
-	return (len);
 }
