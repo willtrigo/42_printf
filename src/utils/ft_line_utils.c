@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:13:52 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/20 23:20:56 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/21 02:16:04 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,6 @@ t_line_chr	*ft_chr_new(char chr)
 	chr_new->chr = chr;
 	chr_new->next = NULL;
 	return (chr_new);
-}
-
-char	*free_line(t_line_chr *line_chr)
-{
-	t_line_chr	*line_chr_temp;
-
-	line_chr_temp = line_chr;
-	while (line_chr_temp)
-	{
-		line_chr_temp = line_chr_temp->next;
-		free(line_chr);
-		line_chr = line_chr_temp;
-	}
-	line_chr_temp = NULL;
-	return (NULL);
 }
 
 void	ft_print_line(t_line *line)
