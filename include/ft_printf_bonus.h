@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/20 05:09:19 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/20 23:32:03 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@
 # define DEFAULT_INIT 0
 # define SPEC_SIZE 10
 
+typedef unsigned int				t_ui;
 typedef unsigned long int			t_uli;
 typedef unsigned long long int		t_ulli;
-typedef unsigned int				t_ui;
 typedef long int					t_li;
 typedef long long int				t_lli;
 
@@ -101,7 +101,6 @@ t_lli		ft_get_width_int_len(t_lli nbr);
 ssize_t		ft_parse_precision(const char *format, t_line *line);
 size_t		ft_cast_chr(va_list ap, t_line *line, int spec);
 size_t		ft_cast_str(va_list ap, t_line *line, int spec);
-void		ft_str_add(char *str, t_line *line);
 size_t		ft_cast_hex_ptr(va_list ap, t_line *line, int spec);
 size_t		ft_cast_hex_lw_up(va_list ap, t_line *line, int spec);
 size_t		ft_cast_int(va_list ap, t_line *line, int spec);
@@ -109,6 +108,7 @@ size_t		ft_cast_per(va_list ap, t_line *line, int spec);
 t_line		ft_line_init(void);
 void		ft_chr_add(t_line_chr **line_chr,
 				t_line_chr *chr_new, t_line *line);
+void		ft_str_add(char *str, t_line *line);
 t_line_chr	*ft_chr_new(char chr);
 char		*line_free(t_line_chr *line_chr);
 void		ft_print_line(t_line *line);
