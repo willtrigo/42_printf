@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/20 05:30:39 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/21 08:57:07 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	ft_get_hex(t_line *line, t_uli hex,
 				t_hex_status *hex_status, int spec);
-static void	ft_flag_add_hex(t_line *line,
-				t_hex_status *hex_status, t_ulli hex, int spec);
+static void	ft_add_hex(t_line *line, t_uli hex,
+				t_hex_status *hex_status, int spec);
 
 size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 {
@@ -36,12 +36,7 @@ size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 			hex_status.len += 2;
 		}
 	}
-	if (line->width >= ON && line->minus == OFF)
-		while ((line->width-- - hex_status.len) > OFF)
-			ft_chr_add(&line->str, ft_chr_new(' '), line);
-	if (line->minus >= ON && hex_status.len == 10)
-		while ((line->width-- - hex_status.len) > OFF)
-			ft_chr_add(&line->str, ft_chr_new(' '), line);
+	ft_combination_tail_hex_ptr(line, &hex_status);
 	return (JUMP);
 }
 
@@ -56,19 +51,19 @@ size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
 		ft_get_hex(line, hex, &hex_status, CHK_HEX_LW);
 	else
 		ft_get_hex(line, hex, &hex_status, CHK_HEX_UP);
-	if ((line->width >= ON && line->zero >= ON) || (line->width
-			>= ON && line->prec >= ON))
-	{
-		if (line->prec >= ON && (hex_status.len == line->width))
-			line->width = 0;
-		while ((line->width-- - hex_status.len) > OFF)
-			ft_chr_add(&line->str, ft_chr_new('0'), line);
-		if (hex == 0 && line->prec >= ON)
-			ft_chr_add(&line->str, ft_chr_new('0'), line);
-	}
+	ft_combination_head_hex_lw_up(line, hex, &hex_status);
 	hex_status.active = ON;
 	hex_status.len = 0;
-	ft_flag_add_hex(line, &hex_status, hex, spec);
+	if (!hex)
+		ft_str_add("0", line);
+	else
+	{
+		if (spec == CHK_HEX_LW)
+			ft_add_hex(line, hex, &hex_status, CHK_HEX_LW);
+		else
+			ft_add_hex(line, hex, &hex_status, CHK_HEX_UP);
+	}
+	ft_combination_tail_hex_lw_up(line, hex, &hex_status);
 	return (JUMP);
 }
 
@@ -92,28 +87,15 @@ static void	ft_get_hex(t_line *line, t_uli hex,
 	}
 }
 
-static void	ft_flag_add_hex(t_line *line,
-				t_hex_status *hex_status, t_ulli hex, int spec)
+static void	ft_add_hex(t_line *line, t_uli hex,
+				t_hex_status *hex_status, int spec)
 {
-	if (!hex)
-		ft_str_add("0", line);
+	if (line->hash == ON && spec == CHK_HEX_LW)
+		ft_str_add("0x", line);
+	else if (line->hash == ON && spec == CHK_HEX_UP)
+		ft_str_add("0X", line);
+	if (spec == CHK_HEX_LW)
+		ft_get_hex(line, hex, hex_status, CHK_HEX_LW);
 	else
-	{
-		if (line->hash == ON && spec == CHK_HEX_LW)
-			ft_str_add("0x", line);
-		else if (line->hash == ON && spec == CHK_HEX_UP)
-			ft_str_add("0X", line);
-		if (spec == CHK_HEX_LW)
-			ft_get_hex(line, hex, hex_status, CHK_HEX_LW);
-		else
-			ft_get_hex(line, hex, hex_status, CHK_HEX_UP);
-	}
-	if (line->width >= ON && line->minus == OFF)
-		while (line->width-- - 1 - hex_status->len > OFF)
-			ft_chr_add(&line->str, ft_chr_new(' '), line);
-	if (hex == 0)
-		line->minus = OFF;
-	if (line->minus >= ON)
-		while ((line->width-- - hex_status->len) > OFF)
-			ft_chr_add(&line->str, ft_chr_new(' '), line);
+		ft_get_hex(line, hex, hex_status, CHK_HEX_UP);
 }

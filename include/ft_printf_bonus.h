@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/20 23:32:03 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/21 08:50:55 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,30 @@ ssize_t		ft_parse_zero(const char *format, t_line *line);
 t_lli		ft_get_width_int_len(t_lli nbr);
 ssize_t		ft_parse_precision(const char *format, t_line *line);
 size_t		ft_cast_chr(va_list ap, t_line *line, int spec);
+void		ft_combination_head_chr(t_line *line);
+void		ft_combination_tail_chr(t_line *line);
 size_t		ft_cast_str(va_list ap, t_line *line, int spec);
+void		ft_str_add(char *str, t_line *line);
+int			ft_str_len(const char *str);
+void		ft_combination_head_str(t_line *line, char *str);
+void		ft_combination_tail_str(t_line *line, int str_len);
 size_t		ft_cast_hex_ptr(va_list ap, t_line *line, int spec);
 size_t		ft_cast_hex_lw_up(va_list ap, t_line *line, int spec);
+void		ft_combination_tail_hex_ptr(t_line *line, t_hex_status *hex_status);
+void		ft_combination_head_hex_lw_up(t_line *line,
+				t_ulli hex, t_hex_status *hex_status);
+void		ft_combination_tail_hex_lw_up(t_line *line,
+				t_ulli hex, t_hex_status *hex_status);
 size_t		ft_cast_int(va_list ap, t_line *line, int spec);
+void		ft_combination_head_nbr(t_line *line, t_lli nbr_len, int fn_nbr);
+void		ft_combination_tail_nbr(t_line *line, t_lli nbr_len);
+void		ft_combination_head_unbr(t_line *line, t_lli nbr_len, t_ui fn_nbr);
+void		ft_combination_tail_unbr(t_line *line, t_lli nbr_len);
 size_t		ft_cast_per(va_list ap, t_line *line, int spec);
 t_line		ft_line_init(void);
 void		ft_chr_add(t_line_chr **line_chr,
 				t_line_chr *chr_new, t_line *line);
-void		ft_str_add(char *str, t_line *line);
 t_line_chr	*ft_chr_new(char chr);
-char		*line_free(t_line_chr *line_chr);
 void		ft_print_line(t_line *line);
 
 #endif
