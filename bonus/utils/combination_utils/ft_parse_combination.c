@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:25:55 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/16 20:23:35 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/17 18:24:56 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ size_t	ft_parse_combination(const char *format, t_line *line, int i_spec)
 			return (OFF);
 	while (*format)
 	{
-		if (*format == '#')
+		if (*format == '.')
+			return (ft_parse_precision(format, line));
+		else if (*format == '#')
 			return (ft_parse_hash(format, line));
 		else if (*format == ' ')
 			return (ft_parse_space(format, line));

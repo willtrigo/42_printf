@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:14:19 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/17 14:50:11 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/19 01:16:34 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,28 +90,50 @@ static void	ft_unbr_add(t_ui unbr, t_line *line)
 static void	ft_combination_nbr_add(t_line *line, t_lli nbr,
 				void (*fn_add)(int, t_line *), int fn_nbr)
 {
+	t_lli	nbr_len;
+
+	nbr_len = ft_get_width_int_len(nbr);
 	if (fn_nbr < 0)
+	{
 		ft_chr_add(&line->str, ft_chr_new('-'), line);
-	if (line->width >= ON && line->zero == OFF && line->minus == OFF)
-		while ((line->width-- - ft_get_width_int_len(nbr) > OFF))
+		if (line->prec >= ON)
+			nbr_len--;
+	}
+	if (line->width >= ON && line->zero == OFF && line->minus
+		== OFF && line->prec == OFF)
+	{
+		while ((line->width-- - nbr_len > OFF))
 			ft_chr_add(&line->str, ft_chr_new(' '), line);
+	}
+	if (line->prec >= ON)
+		while ((line->width-- - nbr_len > OFF))
+			ft_chr_add(&line->str, ft_chr_new('0'), line);
 	if (line->width >= ON && line->zero >= ON)
-		while ((line->width-- - ft_get_width_int_len(nbr) > OFF))
+		while ((line->width-- - nbr_len > OFF))
 			ft_chr_add(&line->str, ft_chr_new('0'), line);
 	fn_add(fn_nbr, line);
 	if (line->width >= ON && line->zero == OFF && line->minus >= ON)
-		while ((line->width-- - ft_get_width_int_len(nbr) > OFF))
+		while ((line->width-- - nbr_len > OFF))
 			ft_chr_add(&line->str, ft_chr_new(' '), line);
 }
 
 static void	ft_combination_unbr_add(t_line *line, t_lli nbr,
 				void (*fn_add)(t_ui, t_line *), t_ui fn_nbr)
 {
+	t_lli	nbr_len;
+
+	nbr_len = ft_get_width_int_len(nbr);
 	if (fn_nbr < 0)
 		ft_chr_add(&line->str, ft_chr_new('-'), line);
-	if (line->width >= ON && line->zero == OFF && line->minus == OFF)
+	if (line->width >= ON && line->zero == OFF && line->minus
+		== OFF && line->prec == OFF)
+	{
 		while ((line->width-- - ft_get_width_int_len(nbr) > OFF))
 			ft_chr_add(&line->str, ft_chr_new(' '), line);
+	}
+	if (line->prec >= ON)
+		while ((line->width-- - nbr_len > OFF))
+			ft_chr_add(&line->str, ft_chr_new('0'), line);
 	if (line->width >= ON && line->zero >= ON)
 		while ((line->width-- - ft_get_width_int_len(nbr) > OFF))
 			ft_chr_add(&line->str, ft_chr_new('0'), line);

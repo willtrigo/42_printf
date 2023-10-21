@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/17 14:51:34 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/20 05:09:19 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,13 @@ struct s_parse_spec_struct
 	t_parse_spec	spec[SPEC_SIZE];
 };
 
+typedef struct s_hex_status			t_hex_status;
+struct s_hex_status
+{
+	int				len;
+	int				active;
+};
+
 int			ft_printf(const char *format, ...);
 void		ft_get_spec(const char *format, va_list ap,
 				t_line *line, size_t jump);
@@ -91,6 +98,7 @@ ssize_t		ft_parse_minus(const char *format, t_line *line);
 ssize_t		ft_parse_width(const char *format, t_line *line);
 ssize_t		ft_parse_zero(const char *format, t_line *line);
 t_lli		ft_get_width_int_len(t_lli nbr);
+ssize_t		ft_parse_precision(const char *format, t_line *line);
 size_t		ft_cast_chr(va_list ap, t_line *line, int spec);
 size_t		ft_cast_str(va_list ap, t_line *line, int spec);
 void		ft_str_add(char *str, t_line *line);
