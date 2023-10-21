@@ -6,13 +6,18 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:13:52 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/12 09:33:21 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/20 23:20:56 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ft_printf.h"
 
-void	ft_add_chr(t_line_chr **line_chr, t_line_chr *chr_new, t_line *line)
+t_line	ft_line_init(void)
+{
+	return ((t_line){NULL, OFF});
+}
+
+void	ft_chr_add(t_line_chr **line_chr, t_line_chr *chr_new, t_line *line)
 {
 	t_line_chr	*line_temp;
 
@@ -59,4 +64,30 @@ char	*free_line(t_line_chr *line_chr)
 	}
 	line_chr_temp = NULL;
 	return (NULL);
+}
+
+void	ft_print_line(t_line *line)
+{
+	t_line_chr	*line_temp;
+	char		*line_new;
+	size_t		i;
+
+	line_new = malloc(sizeof(char) * (line->len + NULL_BYTE));
+	if (!line_new)
+	{
+		free(line_new);
+		return ;
+	}
+	i = 0;
+	line_temp = NULL;
+	while (line->str)
+	{
+		line_temp = line->str->next;
+		line_new[i++] = line->str->chr;
+		free(line->str);
+		line->str = line_temp;
+	}
+	line_new[i] = '\0';
+	write(STDOUT_FILENO, line_new, line->len);
+	free(line_new);
 }
