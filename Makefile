@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 23:32:25 by dande-je          #+#    #+#              #
-#    Updated: 2023/10/21 08:09:57 by dande-je         ###   ########.org.br    #
+#    Updated: 2023/10/24 04:02:59 by dande-je         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,17 +89,14 @@ SRCS_UTILS_BONUS				:= $(addprefix $(SRCS_UTILS_BONUS_DIR), $(SRCS_UTILS_BONUS_F
 SRCS_COMBINATION_BONUS			:= $(addprefix $(SRCS_COMBINATION_BONUS_DIR), $(SRCS_COMBINATION_BONUS_FILES))
 SRCS_SPEC_BONUS					:= $(addprefix $(SRCS_SPEC_BONUS_DIR), $(SRCS_SPEC_BONUS_FILES))
 
-OBJS_MAIN						:= $(SRCS_MAIN:$(SRCS_MAIN_DIR)%.c=$(OBJS_DIR)%.o)
-OBJS_UTILS						:= $(SRCS_UTILS:$(SRCS_UTILS_DIR)%.c=$(OBJS_DIR)%.o)
-OBJS_SPEC						:= $(SRCS_SPEC:$(SRCS_SPEC_DIR)%.c=$(OBJS_DIR)%.o)
+OBJS							+= $(SRCS_MAIN:$(SRCS_MAIN_DIR)%.c=$(OBJS_DIR)%.o)
+OBJS							+= $(SRCS_UTILS:$(SRCS_UTILS_DIR)%.c=$(OBJS_DIR)%.o)
+OBJS							+= $(SRCS_SPEC:$(SRCS_SPEC_DIR)%.c=$(OBJS_DIR)%.o)
 
-OBJS_MAIN_BONUS					:= $(SRCS_MAIN_BONUS:$(SRCS_MAIN_BONUS_DIR)%.c=$(OBJS_DIR)%.o)
-OBJS_UTILS_BONUS				:= $(SRCS_UTILS_BONUS:$(SRCS_UTILS_BONUS_DIR)%.c=$(OBJS_DIR)%.o)
-OBJS_COMBINATION_BONUS			:= $(SRCS_COMBINATION_BONUS:$(SRCS_COMBINATION_BONUS_DIR)%.c=$(OBJS_DIR)%.o)
-OBJS_SPEC_BONUS					:= $(SRCS_SPEC_BONUS:$(SRCS_SPEC_BONUS_DIR)%.c=$(OBJS_DIR)%.o)
-
-OBJS							:= $(OBJS_MAIN) $(OBJS_UTILS) $(OBJS_SPEC)
-OBJS_BONUS						:= $(OBJS_MAIN_BONUS) $(OBJS_UTILS_BONUS) $(OBJS_COMBINATION_BONUS) $(OBJS_SPEC_BONUS)
+OBJS_BONUS						+= $(SRCS_MAIN_BONUS:$(SRCS_MAIN_BONUS_DIR)%.c=$(OBJS_DIR)%.o)
+OBJS_BONUS						+= $(SRCS_UTILS_BONUS:$(SRCS_UTILS_BONUS_DIR)%.c=$(OBJS_DIR)%.o)
+OBJS_BONUS						+= $(SRCS_COMBINATION_BONUS:$(SRCS_COMBINATION_BONUS_DIR)%.c=$(OBJS_DIR)%.o)
+OBJS_BONUS						+= $(SRCS_SPEC_BONUS:$(SRCS_SPEC_BONUS_DIR)%.c=$(OBJS_DIR)%.o)
 
 ifdef WITH_BONUS
 	OBJS						= $(OBJS_BONUS)
@@ -113,6 +110,7 @@ endif
 CLEAN							:= Objects deleted
 FCLEAN							:= Library deleted
 
+#******************************************************************************#
 #									TARGETS									   #
 #******************************************************************************#
 

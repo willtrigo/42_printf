@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/21 02:18:48 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/24 03:52:39 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ struct s_line
 	ssize_t		len;
 };
 
-typedef size_t						(*t_cast_function)(va_list, t_line *, int);
+typedef void						(*t_cast_function)(va_list, t_line *, int);
 
 typedef struct s_parse_spec			t_parse_spec;
 struct s_parse_spec
@@ -74,13 +74,13 @@ struct s_parse_spec_struct
 int			ft_printf(const char *format, ...);
 void		ft_get_spec(const char *format, va_list ap,
 				t_line *line);
-size_t		ft_cast_chr(va_list ap, t_line *line, int spec);
-size_t		ft_cast_str(va_list ap, t_line *line, int spec);
+void		ft_cast_chr(va_list ap, t_line *line, int spec);
+void		ft_cast_str(va_list ap, t_line *line, int spec);
 void		ft_str_add(char *str, t_line *line);
-size_t		ft_cast_hex_ptr(va_list ap, t_line *line, int spec);
-size_t		ft_cast_hex_lw_up(va_list ap, t_line *line, int spec);
-size_t		ft_cast_int(va_list ap, t_line *line, int spec);
-size_t		ft_cast_per(va_list ap, t_line *line, int spec);
+void		ft_cast_hex_ptr(va_list ap, t_line *line, int spec);
+void		ft_cast_hex_lw_up(va_list ap, t_line *line, int spec);
+void		ft_cast_int(va_list ap, t_line *line, int spec);
+void		ft_cast_per(va_list ap, t_line *line, int spec);
 t_line		ft_line_init(void);
 void		ft_chr_add(t_line_chr **line_chr,
 				t_line_chr *chr_new, t_line *line);

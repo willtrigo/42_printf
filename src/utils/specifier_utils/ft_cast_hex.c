@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/21 00:59:55 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/24 03:50:13 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_get_hex(t_line *line, t_uli hex, int len, int spec);
 
-size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
+void	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 {
 	const t_uli	hex = va_arg(ap, t_uli);
 
@@ -28,10 +28,9 @@ size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 			ft_get_hex(line, hex, 0, spec);
 		}
 	}
-	return (JUMP);
 }
 
-size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
+void	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
 {
 	const t_ulli	hex = (t_ulli)va_arg(ap, t_ui);
 
@@ -44,7 +43,6 @@ size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
 		else
 			ft_get_hex(line, hex, 0, CHK_HEX_UP);
 	}
-	return (JUMP);
 }
 
 static void	ft_get_hex(t_line *line, t_uli hex, int len, int spec)

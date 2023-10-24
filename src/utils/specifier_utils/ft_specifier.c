@@ -6,13 +6,13 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 05:59:50 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/21 01:32:06 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/24 03:56:38 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf.h"
 
-static size_t				ft_parse_spec(const char *format,
+static void					ft_parse_spec(const char *format,
 								va_list ap, t_line *line);
 static t_parse_spec_struct	ft_parse_spec_init(void);
 
@@ -28,7 +28,7 @@ void	ft_get_spec(const char *format, va_list ap, t_line *line)
 	}
 }
 
-static size_t	ft_parse_spec(const char *format, va_list ap, t_line *line)
+static void	ft_parse_spec(const char *format, va_list ap, t_line *line)
 {
 	const t_parse_spec_struct	parse_spec = ft_parse_spec_init();
 	int							spec_len;
@@ -38,7 +38,6 @@ static size_t	ft_parse_spec(const char *format, va_list ap, t_line *line)
 		if (*format == parse_spec.spec[spec_len].chr)
 			parse_spec.spec[spec_len].cast_fn(ap, line,
 				parse_spec.spec[spec_len].spec);
-	return (JUMP);
 }
 
 static t_parse_spec_struct	ft_parse_spec_init(void)

@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:14:19 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/21 00:59:41 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/24 03:49:52 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_nbr_add(int nbr, t_line *line);
 static void	ft_unbr_add(t_ui unbr, t_line *line);
 
-size_t	ft_cast_int(va_list ap, t_line *line, int spec)
+void	ft_cast_int(va_list ap, t_line *line, int spec)
 {
 	int		nbr;
 	t_ui	unbr;
@@ -32,7 +32,6 @@ size_t	ft_cast_int(va_list ap, t_line *line, int spec)
 		unbr = va_arg(ap, t_ui);
 		ft_unbr_add(unbr, line);
 	}
-	return (JUMP);
 }
 
 static void	ft_nbr_add(int nbr, t_line *line)
