@@ -6,34 +6,40 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 09:19:09 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/16 11:07:35 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/24 04:24:09 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
-
-static int	ft_get_width(const char *format, ssize_t format_init,
-				ssize_t format_end, int nbr);
 
 ssize_t	ft_parse_width(const char *format, t_line *line)
 {
 	ssize_t	i;
 
 	i = -1;
+	line->width = ON;
+	if (*format == '%')
+		return (2);
 	while (format[++i])
 	{
-		if (format[i] == 'c' || format[i] == 's' || format[i] == 'p'
-			|| format[i] == 'd' || format[i] == 'i' || format[i] == 'u'
-			|| format[i] == 'x' || format[i] == 'X')
-		{
-			line->width = ft_get_width(format, DEFAULT_INIT, i, DEFAULT_INIT);
+		if (ft_check_spec(format, i) == ON)
 			return (i);
+		if (format[i] == '.')
+			return (i + ft_parse_precision((format + i), line));
+		else if (format[i] == '-')
+			return (i + ft_parse_minus((format + i), line));
+		else if (format[i] >= '1' && format[i] <= '9')
+		{
+			while (format[i] >= '0' && format[i] <= '9')
+				i++;
+			line->width = ft_get_combination_nbr(format, DEFAULT_INIT,
+					i--, DEFAULT_INIT);
 		}
 	}
-	return (OFF);
+	return (i + 1);
 }
 
-static int	ft_get_width(const char *format, ssize_t format_init,
+int	ft_get_width(const char *format, ssize_t format_init,
 		ssize_t format_end, int nbr)
 {
 	while (format_init++ < format_end)

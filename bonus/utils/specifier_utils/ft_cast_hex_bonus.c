@@ -6,20 +6,20 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/21 08:57:07 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/22 12:26:31 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
 
-static void	ft_get_hex(t_line *line, t_uli hex,
+static void	ft_get_hex(t_line *line, t_ulli hex,
 				t_hex_status *hex_status, int spec);
-static void	ft_add_hex(t_line *line, t_uli hex,
+static void	ft_add_hex(t_line *line, t_ulli hex,
 				t_hex_status *hex_status, int spec);
 
 size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 {
-	t_uli			hex;
+	t_ulli			hex;
 	t_hex_status	hex_status;
 
 	hex = va_arg(ap, t_uli);
@@ -36,7 +36,8 @@ size_t	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 			hex_status.len += 2;
 		}
 	}
-	ft_combination_tail_hex_ptr(line, &hex_status);
+	if (hex)
+		ft_combination_tail_hex_ptr(line, &hex_status);
 	return (JUMP);
 }
 
@@ -51,7 +52,7 @@ size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
 		ft_get_hex(line, hex, &hex_status, CHK_HEX_LW);
 	else
 		ft_get_hex(line, hex, &hex_status, CHK_HEX_UP);
-	ft_combination_head_hex_lw_up(line, hex, &hex_status);
+	ft_combination_head_hex_lw_up(line, &hex_status);
 	hex_status.active = ON;
 	hex_status.len = 0;
 	if (!hex)
@@ -67,7 +68,7 @@ size_t	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
 	return (JUMP);
 }
 
-static void	ft_get_hex(t_line *line, t_uli hex,
+static void	ft_get_hex(t_line *line, t_ulli hex,
 				t_hex_status *hex_status, int spec)
 {
 	hex_status->len++;
@@ -87,7 +88,7 @@ static void	ft_get_hex(t_line *line, t_uli hex,
 	}
 }
 
-static void	ft_add_hex(t_line *line, t_uli hex,
+static void	ft_add_hex(t_line *line, t_ulli hex,
 				t_hex_status *hex_status, int spec)
 {
 	if (line->hash == ON && spec == CHK_HEX_LW)

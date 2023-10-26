@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_specifier.c                                     :+:      :+:    :+:   */
+/*   ft_specifier_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 05:59:50 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 20:12:38 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/24 04:24:19 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
 
-static int					ft_spec_len(const t_parse_spec_struct *parse_spec,
-								int len);
 static t_parse_spec_struct	ft_parse_spec_init(void);
 static void					ft_line_reset(t_line *line);
 
@@ -41,13 +39,24 @@ size_t	ft_parse_spec(const char *format, va_list ap, t_line *line)
 	int							spec_len;
 
 	jump = 0;
-	spec_len = ft_spec_len(&parse_spec, DEFAULT_INIT);
+	spec_len = SPEC_SIZE;
 	jump = ft_parse_combination(format, line, DEFAULT_INIT);
 	while (--spec_len > FAIL)
 		if (*(format + jump) == parse_spec.spec[spec_len].chr)
 			parse_spec.spec[spec_len].cast_fn(ap, line,
 				parse_spec.spec[spec_len].spec);
 	return (jump);
+}
+
+int	ft_check_spec(const char *format, int i)
+{
+	ssize_t	spec_i;
+
+	spec_i = 0;
+	while (SPEC[spec_i])
+		if (format[i] == SPEC[spec_i++])
+			return (ON);
+	return (OFF);
 }
 
 static t_parse_spec_struct	ft_parse_spec_init(void)
@@ -64,13 +73,6 @@ static t_parse_spec_struct	ft_parse_spec_init(void)
 			{'%', &ft_cast_per, OFF},
 			{'\0', NULL, OFF}
 		}});
-}
-
-static int	ft_spec_len(const t_parse_spec_struct *parse_spec, int len)
-{
-	while (parse_spec->spec[len].chr)
-		len++;
-	return (len);
 }
 
 static void	ft_line_reset(t_line *line)

@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/21 08:50:55 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/24 04:20:13 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define ON 1
 # define OFF 0
 # define SPEC "cspdiuxX%"
+# define SPEC_PARSE "cspdiuxX"
 # define DEFAULT_INIT 0
 # define SPEC_SIZE 10
 
@@ -90,14 +91,19 @@ int			ft_printf(const char *format, ...);
 void		ft_get_spec(const char *format, va_list ap,
 				t_line *line, size_t jump);
 size_t		ft_parse_spec(const char *format, va_list ap, t_line *line);
+int			ft_check_spec(const char *format, int i);
 size_t		ft_parse_combination(const char *format, t_line *line, int spec_i);
+int			ft_get_combination_nbr(const char *format, ssize_t format_init,
+				ssize_t format_end, int nbr);
 ssize_t		ft_parse_hash(const char *format, t_line *line);
 ssize_t		ft_parse_plus(const char *format, t_line *line);
 ssize_t		ft_parse_space(const char *format, t_line *line);
 ssize_t		ft_parse_minus(const char *format, t_line *line);
 ssize_t		ft_parse_width(const char *format, t_line *line);
-ssize_t		ft_parse_zero(const char *format, t_line *line);
+int			ft_get_width(const char *format, ssize_t format_init,
+				ssize_t format_end, int nbr);
 t_lli		ft_get_width_int_len(t_lli nbr);
+ssize_t		ft_parse_zero(const char *format, t_line *line);
 ssize_t		ft_parse_precision(const char *format, t_line *line);
 size_t		ft_cast_chr(va_list ap, t_line *line, int spec);
 void		ft_combination_head_chr(t_line *line);
@@ -111,7 +117,7 @@ size_t		ft_cast_hex_ptr(va_list ap, t_line *line, int spec);
 size_t		ft_cast_hex_lw_up(va_list ap, t_line *line, int spec);
 void		ft_combination_tail_hex_ptr(t_line *line, t_hex_status *hex_status);
 void		ft_combination_head_hex_lw_up(t_line *line,
-				t_ulli hex, t_hex_status *hex_status);
+				t_hex_status *hex_status);
 void		ft_combination_tail_hex_lw_up(t_line *line,
 				t_ulli hex, t_hex_status *hex_status);
 size_t		ft_cast_int(va_list ap, t_line *line, int spec);
