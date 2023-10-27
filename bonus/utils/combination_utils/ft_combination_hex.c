@@ -6,19 +6,31 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 05:56:07 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/22 12:28:05 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/26 20:04:25 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
 
+void	ft_combination_head_hex_ptr(t_line *line, t_hex_status *hex_status)
+{
+	if (line->width > hex_status->len)
+		line->width -= hex_status->len;
+	else
+		line->width = OFF;
+	if (line->width >= ON && line->minus <= OFF && line->prec <= OFF)
+		while ((line->width--) > OFF)
+			ft_chr_add(&line->str, ft_chr_new(' '), line);
+}
+
 void	ft_combination_tail_hex_ptr(t_line *line, t_hex_status *hex_status)
 {
-	if (line->width >= ON && line->minus == OFF)
-		while ((line->width-- - hex_status->len) > OFF)
-			ft_chr_add(&line->str, ft_chr_new(' '), line);
+	if (line->minus > hex_status->len)
+		line->minus -= hex_status->len;
+	else
+		line->minus = OFF;
 	if (line->minus >= ON)
-		while ((line->minus-- - hex_status->len) > OFF)
+		while ((line->minus--) > OFF)
 			ft_chr_add(&line->str, ft_chr_new(' '), line);
 }
 

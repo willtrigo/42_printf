@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/24 04:20:13 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/26 21:42:35 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void		ft_combination_head_str(t_line *line, char *str);
 void		ft_combination_tail_str(t_line *line, int str_len);
 size_t		ft_cast_hex_ptr(va_list ap, t_line *line, int spec);
 size_t		ft_cast_hex_lw_up(va_list ap, t_line *line, int spec);
+void		ft_combination_head_hex_ptr(t_line *line, t_hex_status *hex_status);
 void		ft_combination_tail_hex_ptr(t_line *line, t_hex_status *hex_status);
 void		ft_combination_head_hex_lw_up(t_line *line,
 				t_hex_status *hex_status);
