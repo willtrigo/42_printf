@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:14:19 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/28 00:03:28 by dande-je         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:12:43 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_cast_int(va_list ap, t_line *line, t_line *format, int spec)
 
 static void	ft_nbr_add(int nbr, t_line *line)
 {
-	t_li	nbr_new;
+	t_lli	nbr_new;
 
 	nbr_new = nbr;
 	if (nbr == DEFAULT_INIT)
@@ -62,7 +62,7 @@ static void	ft_nbr_add(int nbr, t_line *line)
 
 static void	ft_unbr_add(t_ui unbr, t_line *line)
 {
-	t_uli	nbr_new;
+	t_ulli	nbr_new;
 
 	nbr_new = unbr;
 	if (unbr == DEFAULT_INIT)

@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/28 00:02:14 by dande-je         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:12:55 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@
 # include <unistd.h>
 
 # define FAIL -1
-# define NEXT_BYTE 1
 # define NULL_BYTE 1
-# define JUMP 1
 # define NULL_PTR "(nil)"
 # define NULL_STR "(null)"
 # define CHK_HEX_PTR 1
@@ -39,7 +37,6 @@
 typedef unsigned int				t_ui;
 typedef unsigned long int			t_uli;
 typedef unsigned long long int		t_ulli;
-typedef long int					t_li;
 typedef long long int				t_lli;
 
 typedef struct s_line_chr			t_line_chr;
