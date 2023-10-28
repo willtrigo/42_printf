@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/24 03:50:13 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/28 00:02:23 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_get_hex(t_line *line, t_uli hex, int len, int spec);
 
-void	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
+void	ft_cast_hex_ptr(va_list ap, t_line *line, t_line *format, int spec)
 {
 	const t_uli	hex = va_arg(ap, t_uli);
 
@@ -25,12 +25,13 @@ void	ft_cast_hex_ptr(va_list ap, t_line *line, int spec)
 		else
 		{
 			ft_str_add("0x", line);
-			ft_get_hex(line, hex, 0, spec);
+			ft_get_hex(line, hex, DEFAULT_INIT, spec);
 		}
 	}
+	ft_format_jump(format);
 }
 
-void	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
+void	ft_cast_hex_lw_up(va_list ap, t_line *line, t_line *format, int spec)
 {
 	const t_ulli	hex = (t_ulli)va_arg(ap, t_ui);
 
@@ -39,24 +40,25 @@ void	ft_cast_hex_lw_up(va_list ap, t_line *line, int spec)
 	else
 	{
 		if (spec == CHK_HEX_LW)
-			ft_get_hex(line, hex, 0, CHK_HEX_LW);
+			ft_get_hex(line, hex, DEFAULT_INIT, CHK_HEX_LW);
 		else
-			ft_get_hex(line, hex, 0, CHK_HEX_UP);
+			ft_get_hex(line, hex, DEFAULT_INIT, CHK_HEX_UP);
 	}
+	ft_format_jump(format);
 }
 
 static void	ft_get_hex(t_line *line, t_uli hex, int len, int spec)
 {
 	if (spec == CHK_HEX_UP)
 	{
-		if (hex >= 16)
-			ft_get_hex(line, hex / 16, ++len, CHK_HEX_UP);
-		ft_chr_add(&line->str, ft_chr_new(HEX_UP[hex % 16]), line);
+		if (hex >= HEX_BASE)
+			ft_get_hex(line, hex / HEX_BASE, ++len, CHK_HEX_UP);
+		ft_chr_add(&line->str, ft_chr_new(HEX_UP[hex % HEX_BASE]), line);
 	}
 	else
 	{
-		if (hex >= 16)
-			ft_get_hex(line, hex / 16, ++len, CHK_HEX_LW);
-		ft_chr_add(&line->str, ft_chr_new(HEX_LW[hex % 16]), line);
+		if (hex >= HEX_BASE)
+			ft_get_hex(line, hex / HEX_BASE, ++len, CHK_HEX_LW);
+		ft_chr_add(&line->str, ft_chr_new(HEX_LW[hex % HEX_BASE]), line);
 	}
 }
