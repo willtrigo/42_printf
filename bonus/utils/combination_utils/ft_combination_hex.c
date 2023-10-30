@@ -6,57 +6,24 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 05:56:07 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/26 20:04:25 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/30 10:06:34 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
 
-void	ft_combination_head_hex_ptr(t_line *line, t_hex_status *hex_status)
+void	ft_combination_head_hex(t_line *line)
 {
-	if (line->width > hex_status->len)
-		line->width -= hex_status->len;
-	else
-		line->width = OFF;
-	if (line->width >= ON && line->minus <= OFF && line->prec <= OFF)
-		while ((line->width--) > OFF)
-			ft_chr_add(&line->str, ft_chr_new(' '), line);
+	if (line->plus >= ON)
+		ft_combination_add(line, ' ', line->plus);
+	if (line->width >= ON)
+		ft_combination_add(line, ' ', line->width);
+	if (line->prec >= ON)
+		ft_combination_add(line, '0', line->prec);
 }
 
-void	ft_combination_tail_hex_ptr(t_line *line, t_hex_status *hex_status)
+void	ft_combination_tail_hex(t_line *line)
 {
-	if (line->minus > hex_status->len)
-		line->minus -= hex_status->len;
-	else
-		line->minus = OFF;
 	if (line->minus >= ON)
-		while ((line->minus--) > OFF)
-			ft_chr_add(&line->str, ft_chr_new(' '), line);
-}
-
-void	ft_combination_head_hex_lw_up(t_line *line, t_hex_status *hex_status)
-{
-	if ((line->zero >= ON) || (line->prec >= ON))
-	{
-		if (line->prec >= ON && (hex_status->len == line->prec))
-			line->prec = 0;
-		while ((line->zero-- - hex_status->len) > OFF)
-			ft_chr_add(&line->str, ft_chr_new('0'), line);
-		if (hex_status->len < line->prec && line->prec >= ON)
-			while ((line->prec-- - hex_status->len) > OFF)
-				ft_chr_add(&line->str, ft_chr_new('0'), line);
-	}
-}
-
-void	ft_combination_tail_hex_lw_up(t_line *line,
-			t_ulli hex, t_hex_status *hex_status)
-{
-	if (line->width >= ON && line->minus == OFF)
-		while (line->width-- - 1 - hex_status->len > OFF)
-			ft_chr_add(&line->str, ft_chr_new(' '), line);
-	if (hex == 0)
-		line->minus = OFF;
-	if (line->minus >= ON)
-		while ((line->minus-- - hex_status->len) > OFF)
-			ft_chr_add(&line->str, ft_chr_new(' '), line);
+		ft_combination_add(line, ' ', line->minus);
 }
