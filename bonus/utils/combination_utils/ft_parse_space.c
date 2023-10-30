@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_space.c                                         :+:      :+:    :+:   */
+/*   ft_parse_space.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 05:12:34 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/15 14:17:44 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/28 07:48:35 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
 
-ssize_t	ft_parse_space(const char *format, t_line *line)
+void	ft_parse_space(t_line *format, t_line *line)
 {
-	ssize_t	i;
-
-	i = -1;
-	while (format[++i])
+	line->space = ON;
+	while (format->str)
 	{
-		line->space = ON;
-		if (format[i] == '%' || format[i] == 'd'
-			|| format[i] == 'i' || format[i] == 's')
-			return (i);
-		if (format[i] >= '1' && format[i] <= '9')
-			return (i + ft_parse_width((format + i), line));
+		if (format->str->chr == '%' || format->str->chr == 'd'
+			|| format->str->chr == 'i' || format->str->chr == 's')
+			break ;
+		else if (format->str->chr == '0')
+			ft_parse_zero(format, line);
+		else if (format->str->chr >= '1' && format->str->chr <= '9')
+			line->prec = ft_parse_nbr(format, DEFAULT_INIT);
 	}
-	return (OFF);
 }

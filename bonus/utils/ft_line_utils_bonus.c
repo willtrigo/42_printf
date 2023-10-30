@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:13:52 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/21 02:24:24 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/29 00:57:33 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_print_line(t_line *line)
 	char		*line_new;
 	size_t		i;
 
-	line_new = malloc(sizeof(char) * (line->len + NULL_BYTE));
+	line_new = malloc(sizeof(char) * (line->len + BYTE));
 	if (!line_new)
 	{
 		free(line_new);
@@ -76,4 +76,13 @@ void	ft_print_line(t_line *line)
 	line_new[i] = '\0';
 	write(STDOUT_FILENO, line_new, line->len);
 	free(line_new);
+}
+
+void	ft_format_jump(t_line *format)
+{
+	t_line_chr	*format_temp;
+
+	format_temp = format->str->next;
+	free(format->str);
+	format->str = format_temp;
 }

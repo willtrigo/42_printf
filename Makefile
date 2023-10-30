@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 23:32:25 by dande-je          #+#    #+#              #
-#    Updated: 2023/10/25 03:24:03 by dande-je         ###   ########.fr        #
+#    Updated: 2023/10/30 10:09:54 by dande-je         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,16 +63,17 @@ HEADER_BONUS				:= $(addprefix $(INCLUDES_DIR), ft_printf_bonus.h)
 SRCS_BONUS_FILES			+= $(addprefix $(SRCS_MAIN_BONUS_DIR), ft_printf_bonus.c)
 SRCS_BONUS_FILES			+= $(addprefix $(SRCS_UTILS_BONUS_DIR), ft_line_utils_bonus.c)
 SRCS_BONUS_FILES			+= $(addprefix $(SRCS_COMBINATION_BONUS_DIR), ft_parse_combination.c\
-								ft_hash.c\
-								ft_plus.c\
-								ft_space.c\
-								ft_minus.c\
-								ft_width.c\
-								ft_zero.c\
-								ft_precision.c\
+								ft_parse_hash.c\
+								ft_parse_plus.c\
+								ft_parse_space.c\
+								ft_parse_minus.c\
+								ft_parse_width.c\
+								ft_parse_zero.c\
+								ft_parse_precision.c\
 								ft_combination_chr.c\
 								ft_combination_str.c\
 								ft_combination_hex.c\
+								ft_combination_hex_math.c\
 								ft_combination_int.c)
 SRCS_BONUS_FILES			+= $(addprefix $(SRCS_SPEC_BONUS_DIR), ft_specifier_bonus.c\
 								ft_cast_chr_bonus.c\

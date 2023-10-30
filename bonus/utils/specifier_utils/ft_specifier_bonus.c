@@ -6,57 +6,53 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 05:59:50 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/24 04:24:19 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/28 08:56:44 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
 
+static void					ft_parse_spec(t_line *format, va_list ap,
+								t_line *line);
 static t_parse_spec_struct	ft_parse_spec_init(void);
 static void					ft_line_reset(t_line *line);
 
-void	ft_get_spec(const char *format, va_list ap, t_line *line, size_t jump)
+void	ft_get_spec(t_line *format, va_list ap, t_line *line)
 {
-	while (*format)
+	while (format->str)
 	{
-		if (*format == '%')
+		if (format->str->chr == '%')
 		{
-			jump = 0;
-			jump += ft_parse_spec(++format, ap, line);
-			format += jump;
+			ft_format_jump(format);
+			ft_parse_spec(format, ap, line);
 			ft_line_reset(line);
+			continue ;
 		}
 		else
-			ft_chr_add(&line->str, ft_chr_new(*format), line);
-		format++;
+			ft_chr_add(&line->str, ft_chr_new(format->str->chr), line);
+		ft_format_jump(format);
 	}
 }
 
-size_t	ft_parse_spec(const char *format, va_list ap, t_line *line)
+int	ft_check_spec(t_line *format, int i)
 {
-	const t_parse_spec_struct	parse_spec = ft_parse_spec_init();
-	size_t						jump;
-	int							spec_len;
-
-	jump = 0;
-	spec_len = SPEC_SIZE;
-	jump = ft_parse_combination(format, line, DEFAULT_INIT);
-	while (--spec_len > FAIL)
-		if (*(format + jump) == parse_spec.spec[spec_len].chr)
-			parse_spec.spec[spec_len].cast_fn(ap, line,
-				parse_spec.spec[spec_len].spec);
-	return (jump);
-}
-
-int	ft_check_spec(const char *format, int i)
-{
-	ssize_t	spec_i;
-
-	spec_i = 0;
-	while (SPEC[spec_i])
-		if (format[i] == SPEC[spec_i++])
+	while (SPEC[i])
+		if (format->str->chr == SPEC[i++])
 			return (ON);
 	return (OFF);
+}
+
+static void	ft_parse_spec(t_line *format, va_list ap, t_line *line)
+{
+	const t_parse_spec_struct	parse_spec = ft_parse_spec_init();
+	int							spec_len;
+
+	spec_len = SPEC_SIZE;
+	ft_parse_combination(format, line);
+	while (--spec_len > FAIL && format->str)
+		if (format->str->chr == parse_spec.spec[spec_len].chr)
+			parse_spec.spec[spec_len].cast_fn(ap, line, format,
+				parse_spec.spec[spec_len].spec);
 }
 
 static t_parse_spec_struct	ft_parse_spec_init(void)

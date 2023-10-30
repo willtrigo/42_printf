@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 03:42:43 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/26 21:42:35 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/30 09:17:55 by dande-je         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <stdio.h>
 
 # define FAIL -1
-# define NEXT_BYTE 1
-# define NULL_BYTE 1
+# define I_INIT -1
+# define BYTE 1
 # define JUMP 1
 # define NULL_PTR "(nil)"
 # define NULL_STR "(null)"
@@ -40,7 +41,6 @@
 typedef unsigned int				t_ui;
 typedef unsigned long int			t_uli;
 typedef unsigned long long int		t_ulli;
-typedef long int					t_li;
 typedef long long int				t_lli;
 
 typedef struct s_line_chr			t_line_chr;
@@ -64,7 +64,8 @@ struct s_line
 	int				prec;
 };
 
-typedef size_t						(*t_cast_function)(va_list, t_line *, int);
+typedef void						(*t_cast_function)(va_list,
+										t_line *, t_line *, int);
 
 typedef struct s_parse_spec			t_parse_spec;
 struct s_parse_spec
@@ -88,45 +89,44 @@ struct s_hex_status
 };
 
 int			ft_printf(const char *format, ...);
-void		ft_get_spec(const char *format, va_list ap,
-				t_line *line, size_t jump);
-size_t		ft_parse_spec(const char *format, va_list ap, t_line *line);
-int			ft_check_spec(const char *format, int i);
-size_t		ft_parse_combination(const char *format, t_line *line, int spec_i);
-int			ft_get_combination_nbr(const char *format, ssize_t format_init,
-				ssize_t format_end, int nbr);
-ssize_t		ft_parse_hash(const char *format, t_line *line);
-ssize_t		ft_parse_plus(const char *format, t_line *line);
-ssize_t		ft_parse_space(const char *format, t_line *line);
-ssize_t		ft_parse_minus(const char *format, t_line *line);
-ssize_t		ft_parse_width(const char *format, t_line *line);
-int			ft_get_width(const char *format, ssize_t format_init,
-				ssize_t format_end, int nbr);
-t_lli		ft_get_width_int_len(t_lli nbr);
-ssize_t		ft_parse_zero(const char *format, t_line *line);
-ssize_t		ft_parse_precision(const char *format, t_line *line);
-size_t		ft_cast_chr(va_list ap, t_line *line, int spec);
+void		ft_get_spec(t_line *format, va_list ap, t_line *line);
+int			ft_check_spec(t_line *format, int i);
+void		ft_parse_combination(t_line *format, t_line *line);
+int			ft_parse_nbr(t_line *format, int nbr);
+t_lli		ft_get_nbr_len(t_lli nbr);
+t_ulli		ft_get_unbr_len(t_ulli nbr);
+void		ft_combination_add(t_line *line, char chr, int size);
+void		ft_parse_hash(t_line *format, t_line *line);
+void		ft_parse_plus(t_line *format, t_line *line);
+void		ft_parse_space(t_line *format, t_line *line);
+void		ft_parse_minus(t_line *format, t_line *line);
+void		ft_parse_width(t_line *format, t_line *line);
+void		ft_parse_zero(t_line *format, t_line *line);
+void		ft_parse_precision(t_line *format, t_line *line);
+int			ft_parse_nbr(t_line *format, int nbr);
+t_lli		ft_get_nbr_len(t_lli nbr);
+void		ft_cast_chr(va_list ap, t_line *line, t_line *format, int spec);
 void		ft_combination_head_chr(t_line *line);
 void		ft_combination_tail_chr(t_line *line);
-size_t		ft_cast_str(va_list ap, t_line *line, int spec);
+void		ft_cast_str(va_list ap, t_line *line, t_line *format, int spec);
 void		ft_str_add(char *str, t_line *line);
 int			ft_str_len(const char *str);
 void		ft_combination_head_str(t_line *line, char *str);
 void		ft_combination_tail_str(t_line *line, int str_len);
-size_t		ft_cast_hex_ptr(va_list ap, t_line *line, int spec);
-size_t		ft_cast_hex_lw_up(va_list ap, t_line *line, int spec);
-void		ft_combination_head_hex_ptr(t_line *line, t_hex_status *hex_status);
-void		ft_combination_tail_hex_ptr(t_line *line, t_hex_status *hex_status);
-void		ft_combination_head_hex_lw_up(t_line *line,
-				t_hex_status *hex_status);
-void		ft_combination_tail_hex_lw_up(t_line *line,
-				t_ulli hex, t_hex_status *hex_status);
-size_t		ft_cast_int(va_list ap, t_line *line, int spec);
+void		ft_cast_hex_ptr(va_list ap, t_line *line, t_line *format, int spec);
+void		ft_cast_hex_lw_up(va_list ap, t_line *line, t_line *format,
+				int spec);
+void		ft_combination_hex_math_null(t_line *line);
+void		ft_combination_hex_math(t_line *line, t_hex_status *hex_status);
+void		ft_combination_head_hex(t_line *line);
+void		ft_combination_tail_hex(t_line *line);
+void		ft_cast_int(va_list ap, t_line *line, t_line *format, int spec);
 void		ft_combination_head_nbr(t_line *line, t_lli nbr_len, int fn_nbr);
 void		ft_combination_tail_nbr(t_line *line, t_lli nbr_len);
 void		ft_combination_head_unbr(t_line *line, t_lli nbr_len, t_ui fn_nbr);
 void		ft_combination_tail_unbr(t_line *line, t_lli nbr_len);
-size_t		ft_cast_per(va_list ap, t_line *line, int spec);
+void		ft_cast_per(va_list ap, t_line *line, t_line *format, int spec);
+void		ft_format_jump(t_line *format);
 t_line		ft_line_init(void);
 void		ft_chr_add(t_line_chr **line_chr,
 				t_line_chr *chr_new, t_line *line);

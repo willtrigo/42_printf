@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:14:19 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/21 07:52:07 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/10/28 08:23:11 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_combination_nbr_add(t_line *line, t_lli nbr,
 static void	ft_combination_unbr_add(t_line *line, t_lli nbr,
 				void (*fn_add)(t_ui, t_line *), t_ui ft_nbr);
 
-size_t	ft_cast_int(va_list ap, t_line *line, int spec)
+void	ft_cast_int(va_list ap, t_line *line, t_line *format, int spec)
 {
 	int		nbr;
 	t_ui	unbr;
@@ -40,12 +40,12 @@ size_t	ft_cast_int(va_list ap, t_line *line, int spec)
 		unbr = va_arg(ap, t_ui);
 		ft_combination_unbr_add(line, (t_lli)unbr, ft_unbr_add, unbr);
 	}
-	return (JUMP);
+	ft_format_jump(format);
 }
 
 static void	ft_nbr_add(int nbr, t_line *line)
 {
-	t_li	nbr_new;
+	t_lli	nbr_new;
 
 	nbr_new = nbr;
 	if (nbr == 0)
@@ -67,7 +67,7 @@ static void	ft_nbr_add(int nbr, t_line *line)
 
 static void	ft_unbr_add(t_ui unbr, t_line *line)
 {
-	t_uli	nbr_new;
+	t_ulli	nbr_new;
 
 	nbr_new = unbr;
 	if (unbr == 0)
@@ -92,7 +92,7 @@ static void	ft_combination_nbr_add(t_line *line, t_lli nbr,
 {
 	t_lli	nbr_len;
 
-	nbr_len = ft_get_width_int_len(nbr);
+	nbr_len = ft_get_nbr_len(nbr);
 	ft_combination_head_nbr(line, nbr_len, fn_nbr);
 	fn_add(fn_nbr, line);
 	ft_combination_tail_nbr(line, nbr_len);
@@ -103,7 +103,7 @@ static void	ft_combination_unbr_add(t_line *line, t_lli nbr,
 {
 	t_lli	nbr_len;
 
-	nbr_len = ft_get_width_int_len(nbr);
+	nbr_len = ft_get_nbr_len(nbr);
 	ft_combination_head_unbr(line, nbr_len, fn_nbr);
 	fn_add(fn_nbr, line);
 	ft_combination_tail_unbr(line, nbr_len);
