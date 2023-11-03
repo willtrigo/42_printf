@@ -6,19 +6,19 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:01:56 by dande-je          #+#    #+#             */
-/*   Updated: 2023/11/03 06:57:37 by dande-je         ###   ########.fr       */
+/*   Updated: 2023/11/03 10:15:58 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../include/ft_printf_bonus.h"
 
-void		ft_combination_math_aux(t_line *line, t_lli nbr,
+void		ft_combination_int_math_aux(t_line *line, t_lli nbr,
 				t_combination_history *hist);
-void		ft_combination_math_aux_1(t_line *line, t_lli nbr,
+void		ft_combination_int_math_aux_1(t_line *line, t_lli nbr,
 				t_combination_history *hist);
-static void	ft_combination_math_0(t_line *line);
+static void	ft_combination_int_math_0(t_line *line);
 
-void	ft_combination_math(t_line *line, t_lli nbr)
+void	ft_combination_int_math(t_line *line, t_lli nbr)
 {
 	t_combination_history	hist;
 
@@ -26,10 +26,10 @@ void	ft_combination_math(t_line *line, t_lli nbr)
 	hist.prec = line->prec;
 	hist.width = line->width;
 	hist.minus = line->minus;
-	ft_combination_math_aux(line, nbr, &hist);
+	ft_combination_int_math_aux(line, nbr, &hist);
 }
 
-void	ft_combination_math_aux(t_line *line, t_lli nbr,
+void	ft_combination_int_math_aux(t_line *line, t_lli nbr,
 			t_combination_history *hist)
 {
 	if (nbr == 0)
@@ -40,7 +40,7 @@ void	ft_combination_math_aux(t_line *line, t_lli nbr,
 					&& (line->prec > line->width)))
 				ft_math_apply(line, line->prec, OFF, OFF);
 			else
-				ft_combination_math_0(line);
+				ft_combination_int_math_0(line);
 		}
 		return ;
 	}
@@ -54,10 +54,10 @@ void	ft_combination_math_aux(t_line *line, t_lli nbr,
 	}	
 	if (line->zero == ON)
 		ft_int_math_zero(line, nbr, hist);
-	ft_combination_math_aux_1(line, nbr, hist);
+	ft_combination_int_math_aux_1(line, nbr, hist);
 }
 
-void	ft_combination_math_aux_1(t_line *line, t_lli nbr,
+void	ft_combination_int_math_aux_1(t_line *line, t_lli nbr,
 			t_combination_history *hist)
 {
 	if (line->minus >= ON)
@@ -76,7 +76,7 @@ void	ft_combination_math_aux_1(t_line *line, t_lli nbr,
 	}
 }
 
-static void	ft_combination_math_0(t_line *line)
+static void	ft_combination_int_math_0(t_line *line)
 {
 	if (line->zero == ON)
 	{

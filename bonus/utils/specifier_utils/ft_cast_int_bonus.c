@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:14:19 by dande-je          #+#    #+#             */
-/*   Updated: 2023/11/03 07:57:26 by dande-je         ###   ########.fr       */
+/*   Updated: 2023/11/03 10:18:26 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	ft_cast_int(va_list ap, t_line *line, t_line *format, int spec)
 	if (spec == CHK_INT_D_I)
 	{
 		nbr = va_arg(ap, int);
-		ft_combination_math(line, (t_lli)nbr);
+		ft_combination_int_math(line, (t_lli)nbr);
 		ft_combination_int_add(line, (t_lli)nbr);
 	}
 	else
 	{
 		unbr = va_arg(ap, t_ui);
-		ft_combination_math(line, (t_lli)unbr);
+		ft_combination_int_math(line, (t_lli)unbr);
 		ft_combination_int_add(line, (t_lli)unbr);
 	}
 	ft_format_jump(format);
