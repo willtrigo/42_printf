@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:38:25 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/30 09:18:38 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/11/03 07:57:22 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_cast_hex_ptr(va_list ap, t_line *line, t_line *format, int spec)
 		hex_status.len = 5;
 		ft_combination_hex_math(line, &hex_status);
 		ft_combination_head_hex(line);
-		ft_str_add(NULL_PTR, line);
+		ft_str_insert(NULL_PTR, line);
 	}
 	else
 	{
@@ -63,7 +63,7 @@ void	ft_cast_hex_lw_up(va_list ap, t_line *line, t_line *format, int spec)
 		hex_status.len = 0;
 		ft_combination_head_hex(line);
 		if (!((line->prec != FAIL) || (line->zero == ON)))
-			ft_str_add("0", line);
+			ft_str_insert("0", line);
 	}
 	else
 		ft_cast_hex_lw_up_aux(line, &hex_status, hex, spec);
@@ -112,9 +112,9 @@ static void	ft_add_hex(t_line *line, t_ulli hex,
 				t_hex_status *hex_status, int spec)
 {
 	if (line->hash == ON && spec == CHK_HEX_LW)
-		ft_str_add("0x", line);
+		ft_str_insert("0x", line);
 	else if (line->hash == ON && spec == CHK_HEX_UP)
-		ft_str_add("0X", line);
+		ft_str_insert("0X", line);
 	if (spec == CHK_HEX_LW)
 		ft_get_hex(line, hex, hex_status, CHK_HEX_LW);
 	else
