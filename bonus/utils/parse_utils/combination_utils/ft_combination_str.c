@@ -6,11 +6,11 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 08:01:38 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/25 20:58:29 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/11/03 06:57:45 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/ft_printf_bonus.h"
+#include "../../../../include/ft_printf_bonus.h"
 
 static void	ft_reset_prec(t_line *line);
 
@@ -33,7 +33,7 @@ void	ft_combination_head_str(t_line *line, char *str)
 			else if (line->width > line->prec)
 				line->width -= line->prec - str_len;
 		}
-		while ((line->width-- - NULL_BYTE - str_len) > FAIL)
+		while ((line->width-- - BYTE - str_len) > FAIL)
 			ft_chr_add(&line->str, ft_chr_new(' '), line);
 	}
 }
@@ -42,7 +42,7 @@ void	ft_combination_tail_str(t_line *line, int str_len)
 {
 	line->minus -= str_len;
 	if (line->prec >= ON)
-		line->minus -= line->prec + NULL_BYTE;
+		line->minus -= line->prec + BYTE;
 	if (line->minus >= ON)
 		while ((line->minus--) > OFF)
 			ft_chr_add(&line->str, ft_chr_new(' '), line);

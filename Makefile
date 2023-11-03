@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 23:32:25 by dande-je          #+#    #+#              #
-#    Updated: 2023/10/30 10:09:54 by dande-je         ###   ########.org.br    #
+#    Updated: 2023/11/03 08:06:16 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCS_UTILS_DIR				:= src/utils/
 SRCS_SPEC_DIR				:= src/utils/specifier_utils/
 SRCS_MAIN_BONUS_DIR			:= bonus/
 SRCS_UTILS_BONUS_DIR		:= bonus/utils/
-SRCS_COMBINATION_BONUS_DIR	:= bonus/utils/combination_utils/
+SRCS_PARSE_BONUS_DIR		:= bonus/utils/parse_utils/
+SRCS_COMBINATION_BONUS_DIR	:= bonus/utils/parse_utils/combination_utils/
 SRCS_SPEC_BONUS_DIR			:= bonus/utils/specifier_utils/
 
 #******************************************************************************#
@@ -61,20 +62,26 @@ SRCS_FILES					+= $(addprefix $(SRCS_SPEC_DIR), ft_specifier.c\
 HEADER_BONUS				:= $(addprefix $(INCLUDES_DIR), ft_printf_bonus.h)
 
 SRCS_BONUS_FILES			+= $(addprefix $(SRCS_MAIN_BONUS_DIR), ft_printf_bonus.c)
-SRCS_BONUS_FILES			+= $(addprefix $(SRCS_UTILS_BONUS_DIR), ft_line_utils_bonus.c)
-SRCS_BONUS_FILES			+= $(addprefix $(SRCS_COMBINATION_BONUS_DIR), ft_parse_combination.c\
+SRCS_BONUS_FILES			+= $(addprefix $(SRCS_UTILS_BONUS_DIR), ft_line_utils_bonus.c\
+								ft_str_utils.c\
+								ft_nbr_utils.c)
+SRCS_BONUS_FILES			+= $(addprefix $(SRCS_PARSE_BONUS_DIR), ft_parse_combination.c\
 								ft_parse_hash.c\
 								ft_parse_plus.c\
 								ft_parse_space.c\
 								ft_parse_minus.c\
 								ft_parse_width.c\
 								ft_parse_zero.c\
-								ft_parse_precision.c\
-								ft_combination_chr.c\
+								ft_parse_precision.c)
+SRCS_BONUS_FILES			+= $(addprefix $(SRCS_COMBINATION_BONUS_DIR), ft_combination_chr.c\
 								ft_combination_str.c\
 								ft_combination_hex.c\
 								ft_combination_hex_math.c\
-								ft_combination_int.c)
+								ft_combination_int.c\
+								ft_combination_int_math.c\
+								ft_combination_int_math_zero.c\
+								ft_combination_int_math_width.c\
+								ft_combination_int_math_minus.c)
 SRCS_BONUS_FILES			+= $(addprefix $(SRCS_SPEC_BONUS_DIR), ft_specifier_bonus.c\
 								ft_cast_chr_bonus.c\
 								ft_cast_str_bonus.c\
@@ -89,16 +96,20 @@ OBJS_BONUS					+= $(SRCS_BONUS_FILES:%.c=$(OBJS_DIR)%.o)
 ifdef WITH_BONUS
 	OBJS					= $(OBJS_BONUS)
 	HEADER					= $(HEADER_BONUS)
+	LIB_MESSAGE				= $(LIB_MESSAGE_BONUS)
+	COMP					= $(COMP_BONUS)
 endif
 
 #******************************************************************************#
 #								OUTPUTS MESSAGES							   #
 #******************************************************************************#
 
-CLEAN_MESSAGE				:= Objects deleted
-FCLEAN_MESSAGE				:= Library deleted
-LIB_MESSAGE					:= Library created
-COMP						:= Compiling library
+CLEAN_MESSAGE				:= Printf objects deleted
+FCLEAN_MESSAGE				:= Library printf deleted
+LIB_MESSAGE					= Printf library created
+LIB_MESSAGE_BONUS			= Printf library bonus created
+COMP						= Compiling printf library
+COMP_BONUS					= Compiling printf library bonus
 
 #******************************************************************************#
 #									TARGETS									   #
