@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 06:42:59 by dande-je          #+#    #+#             */
-/*   Updated: 2023/11/03 06:57:40 by dande-je         ###   ########.fr       */
+/*   Updated: 2023/11/05 06:48:48 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	ft_combination_head_int(t_line *line, t_lli nbr)
 		ft_combination_add(line, ' ', line->width);
 	if (nbr < 0)
 	{
+		if (line->minus == FAIL)
+		{
+			ft_chr_add(&line->str, ft_chr_new('-'), line);
+			line->prec--;
+		}
 		if (line->zero == ON)
 			ft_chr_add(&line->str, ft_chr_new('-'), line);
 		else if ((line->width == OFF) && (line->prec == OFF)

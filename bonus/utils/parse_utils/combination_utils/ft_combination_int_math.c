@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:01:56 by dande-je          #+#    #+#             */
-/*   Updated: 2023/11/03 10:15:58 by dande-je         ###   ########.fr       */
+/*   Updated: 2023/11/05 06:53:46 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void		ft_combination_int_math_aux(t_line *line, t_lli nbr,
 void		ft_combination_int_math_aux_1(t_line *line, t_lli nbr,
 				t_combination_history *hist);
 static void	ft_combination_int_math_0(t_line *line);
+static void	ft_combination_int_math_0_aux(t_line *line);
 
 void	ft_combination_int_math(t_line *line, t_lli nbr)
 {
@@ -60,6 +61,9 @@ void	ft_combination_int_math_aux(t_line *line, t_lli nbr,
 void	ft_combination_int_math_aux_1(t_line *line, t_lli nbr,
 			t_combination_history *hist)
 {
+	if (line->minus == FAIL)
+		ft_math_apply(line, line->prec - hist->len \
+		+ BYTE + BYTE, line->width, line->minus);
 	if (line->minus >= ON)
 		ft_int_math_minus(line, nbr, hist);
 	if (line->width >= ON)
@@ -80,12 +84,29 @@ static void	ft_combination_int_math_0(t_line *line)
 {
 	if (line->zero == ON)
 	{
+		if (line->minus >= ON)
+			ft_math_apply(line, line->minus, OFF, OFF);
+		else if (line->width >= ON)
+		{
+			if (line->prec == OFF)
+				line->prec = line->width;
+			ft_math_apply(line, line->prec, line->width - line->prec, OFF);
+			return ;
+		}
 		if ((line->prec == OFF) && (line->minus == OFF) && (line->width == OFF))
-			line->prec = ON;
-		if (line->prec >= ON)
-			line->width -= line->prec;
-		else
-			ft_math_apply(line, line->width, OFF, OFF);
+			ft_math_apply(line, ON, OFF, OFF);
+	}
+	ft_combination_int_math_0_aux(line);
+}
+
+static void	ft_combination_int_math_0_aux(t_line *line)
+{
+	if (line->zero == ZERO)
+	{
+		if (line->minus >= ON)
+			ft_math_apply(line, FAIL, OFF, line->minus);
+		else if (line->width >= ON)
+			ft_math_apply(line, FAIL, line->width, OFF);
 	}
 	else if (line->minus >= ON)
 	{
