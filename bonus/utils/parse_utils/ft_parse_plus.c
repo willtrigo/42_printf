@@ -6,22 +6,12 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 05:17:51 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/29 05:38:09 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/11/05 20:55:53 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/ft_printf_bonus.h"
 
-/*void	ft_parse_plus(t_line *format, t_line *line)
-{
-	line->plus = ON;
-	while (format->str)
-	{
-		if (format->str->chr == 'd' || format->str->chr == 'i')
-			return ;
-		ft_format_jump(format);
-	}
-}*/
 void	ft_parse_plus(t_line *format, t_line *line)
 {
 	t_line_chr	*format_next;
