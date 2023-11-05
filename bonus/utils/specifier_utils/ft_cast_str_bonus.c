@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 04:50:00 by dande-je          #+#    #+#             */
-/*   Updated: 2023/11/03 09:10:51 by dande-je         ###   ########.fr       */
+/*   Updated: 2023/11/05 07:27:01 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,19 @@ void	ft_cast_str(va_list ap, t_line *line, t_line *format, int spec)
 	(void)spec;
 	str = va_arg(ap, char *);
 	if (!str)
+	{
+		ft_combination_str_math(line, str, 0);
 		str = NULL_STR;
-	str_len = ft_str_len((const char *)str);
-	if (line->prec >= ON && line->prec <= str_len)
-		line->minus -= line->prec - str_len;
-	if (line->prec >= ON || line->width >= ON)
-		ft_combination_head_str(line, str);
-	if (*str != '\0' && line->prec != FAIL)
+		str_len = ft_str_len((const char *)str);
+	}
+	else
+	{
+		str_len = ft_str_len((const char *)str);
+		ft_combination_str_math(line, str, str_len);
+	}
+	ft_combination_head_str(line);
+	if (*str && line->prec != FAIL)
 		ft_str_insert(str, line);
-	ft_combination_tail_str(line, str_len);
+	ft_combination_tail_str(line);
 	ft_format_jump(format);
 }

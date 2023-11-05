@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 23:32:25 by dande-je          #+#    #+#              #
-#    Updated: 2023/11/03 08:06:16 by dande-je         ###   ########.fr        #
+#    Updated: 2023/11/05 07:08:48 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,13 +75,15 @@ SRCS_BONUS_FILES			+= $(addprefix $(SRCS_PARSE_BONUS_DIR), ft_parse_combination.
 								ft_parse_precision.c)
 SRCS_BONUS_FILES			+= $(addprefix $(SRCS_COMBINATION_BONUS_DIR), ft_combination_chr.c\
 								ft_combination_str.c\
+								ft_combination_str_math_null.c\
 								ft_combination_hex.c\
 								ft_combination_hex_math.c\
 								ft_combination_int.c\
 								ft_combination_int_math.c\
 								ft_combination_int_math_zero.c\
 								ft_combination_int_math_width.c\
-								ft_combination_int_math_minus.c)
+								ft_combination_int_math_minus.c\
+								ft_combination_str_math.c)
 SRCS_BONUS_FILES			+= $(addprefix $(SRCS_SPEC_BONUS_DIR), ft_specifier_bonus.c\
 								ft_cast_chr_bonus.c\
 								ft_cast_str_bonus.c\
