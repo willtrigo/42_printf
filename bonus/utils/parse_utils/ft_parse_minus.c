@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 05:27:37 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/29 02:52:35 by dande-je         ###   ########.org.br   */
+/*   Updated: 2023/11/03 15:47:42 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_parse_minus(t_line *format, t_line *line)
 	t_line_chr	*format_next;
 
 	format_next = format->str->next;
-	line->minus = ON;
+	line->minus = FAIL;
 	if (format->str->chr == '0')
 	{
 		ft_format_jump(format);

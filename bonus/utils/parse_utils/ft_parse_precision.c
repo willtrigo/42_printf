@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:15:19 by dande-je          #+#    #+#             */
-/*   Updated: 2023/11/03 04:11:16 by dande-je         ###   ########.fr       */
+/*   Updated: 2023/11/05 06:57:02 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ void	ft_parse_precision(t_line *format, t_line *line)
 	line->prec = FAIL;
 	while (format->str->chr == '.')
 		ft_format_jump(format);
-	if (ft_precision_without_nbr(format, line) == ON)
-		return ;
-	if (ft_check_spec(format, DEFAULT_INIT) == ON)
+	if ((ft_precision_without_nbr(format, line) == ON) \
+		|| (ft_check_spec(format, DEFAULT_INIT) == ON))
 		return ;
 	if (format->str->chr == '0')
 	{
 		ft_format_jump(format);
-		ft_parse_zero(format, line);
-		return ;
+		line->prec = ZERO;
+		line->zero = ZERO;
 	}
 	while (format->str)
 	{
@@ -36,7 +35,11 @@ void	ft_parse_precision(t_line *format, t_line *line)
 		if (format->str->chr == '-')
 			ft_parse_minus(format, line);
 		if (format->str->chr >= '1' && format->str->chr <= '9')
+		{
+			if (line->zero == ZERO)
+				line->zero = ON;
 			line->prec = ft_parse_nbr(format, DEFAULT_INIT);
+		}
 	}
 }
 
