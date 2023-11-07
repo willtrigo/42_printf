@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 23:32:25 by dande-je          #+#    #+#              #
-#    Updated: 2023/11/05 07:08:48 by dande-je         ###   ########.fr        #
+#    Updated: 2023/11/07 01:04:52 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS_SPEC_BONUS_DIR			:= bonus/utils/specifier_utils/
 #******************************************************************************#
 
 CC							:= cc
-CFLAGS						?= -Wall -Wextra -Werror -O3
+CFLAGS						?= -Wall -Wextra -Werror -fsanitize=address -O1 -fno-omit-frame-pointer -g
 LIB							:= ar -rcs
 
 #******************************************************************************#

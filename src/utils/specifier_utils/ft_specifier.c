@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 05:59:50 by dande-je          #+#    #+#             */
-/*   Updated: 2023/10/27 23:53:27 by dande-je         ###   ########.fr       */
+/*   Updated: 2023/11/07 00:23:45 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ void	ft_get_spec(t_line *format, va_list ap, t_line *line)
 		{
 			ft_format_jump(format);
 			ft_parse_spec(format, ap, line);
-			continue ;
 		}
 		else
+		{
 			ft_chr_add(&line->str, ft_chr_new(format->str->chr), line);
-		ft_format_jump(format);
+			ft_format_jump(format);
+		}
 	}
 }
 
@@ -40,8 +41,11 @@ static void	ft_parse_spec(t_line *format, va_list ap, t_line *line)
 	spec_len = SPEC_SIZE;
 	while (--spec_len > FAIL)
 		if (format->str->chr == parse_spec.spec[spec_len].chr)
+		{
 			parse_spec.spec[spec_len].cast_fn(ap, line, format,
 				parse_spec.spec[spec_len].spec);
+			break ;
+		}
 }
 
 static t_parse_spec_struct	ft_parse_spec_init(void)
