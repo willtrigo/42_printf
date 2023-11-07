@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 23:32:25 by dande-je          #+#    #+#              #
-#    Updated: 2023/11/07 01:04:52 by dande-je         ###   ########.fr        #
+#    Updated: 2023/11/07 20:13:45 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRCS_SPEC_BONUS_DIR			:= bonus/utils/specifier_utils/
 #******************************************************************************#
 
 CC							:= cc
-CFLAGS						?= -Wall -Wextra -Werror -fsanitize=address -O1 -fno-omit-frame-pointer -g
+CFLAGS						?= -Wall -Wextra -Werror -O1 -fno-omit-frame-pointer -g
+LDFLAGS						:= -fsanitize=address
 LIB							:= ar -rcs
 
 #******************************************************************************#
@@ -48,7 +49,7 @@ SLEEP						:= sleep 0.3
 
 NAME						:= libftprintf.a
 
-HEADER						:= $(addprefix $(INCLUDES_DIR), ft_printf.h)
+HEADER						:= $(INCLUDES_DIR)
 
 SRCS_FILES					+= $(addprefix $(SRCS_MAIN_DIR), ft_printf.c)
 SRCS_FILES					+= $(addprefix $(SRCS_UTILS_DIR), ft_line_utils.c)
@@ -59,7 +60,7 @@ SRCS_FILES					+= $(addprefix $(SRCS_SPEC_DIR), ft_specifier.c\
 								ft_cast_int.c\
 								ft_cast_per.c)
 
-HEADER_BONUS				:= $(addprefix $(INCLUDES_DIR), ft_printf_bonus.h)
+HEADER_BONUS				:= $(INCLUDES_DIR)
 
 SRCS_BONUS_FILES			+= $(addprefix $(SRCS_MAIN_BONUS_DIR), ft_printf_bonus.c)
 SRCS_BONUS_FILES			+= $(addprefix $(SRCS_UTILS_BONUS_DIR), ft_line_utils_bonus.c\
@@ -122,7 +123,7 @@ all:						$(NAME)
 $(OBJS_DIR)%.o: %.c
 								@$(MKDIR) $(dir $@)
 								@$(eval COUNT=$(shell expr $(COUNT) + 1))
-								@$(CC) $(CFLAGS) -I $(HEADER) -c $< -o $@
+								@$(CC) $(CFLAGS) -I $(HEADER) -c $< -o $@ $(LDFLAGS)
 								@printf "$(COMP) %d%%\r" $$(echo $$(($(COUNT) * 100 / $(words $(OBJS)))))
 
 $(NAME):					$(OBJS)
